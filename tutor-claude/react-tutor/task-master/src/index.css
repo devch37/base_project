@@ -1,0 +1,98 @@
+/**
+ * ============================================
+ * Global Styles
+ * ============================================
+ *
+ * Tailwind CSS를 사용하는 전역 스타일입니다.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/**
+ * 기본 스타일 재정의
+ */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply h-full;
+  }
+
+  body {
+    @apply h-full font-sans antialiased bg-gray-50 text-gray-900;
+  }
+
+  #root {
+    @apply h-full;
+  }
+}
+
+/**
+ * 커스텀 유틸리티 클래스
+ */
+@layer utilities {
+  /* 스크롤바 스타일링 */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(203 213 225) transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-gray-300 rounded-full;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-400;
+  }
+
+  /* 애니메이션 */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-out;
+  }
+}
+
+/**
+ * 학습 노트:
+ *
+ * 1. Tailwind CSS Layers
+ *    - @layer base: 기본 HTML 요소 스타일
+ *    - @layer components: 재사용 가능한 컴포넌트 스타일
+ *    - @layer utilities: 유틸리티 클래스
+ *
+ * 2. @apply 지시어
+ *    - Tailwind 클래스를 CSS 규칙에 적용
+ *    - @apply bg-gray-50 text-gray-900
+ *
+ * 3. 커스텀 스크롤바
+ *    - 브라우저 호환성 고려
+ *    - scrollbar-width (Firefox)
+ *    - ::-webkit-scrollbar (Chrome, Safari)
+ *
+ * 4. 전역 리셋
+ *    - 일관된 스타일 기준
+ *    - 브라우저 기본 스타일 재정의
+ */

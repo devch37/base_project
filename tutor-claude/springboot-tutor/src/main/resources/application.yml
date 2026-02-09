@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: springboot-claude
+
+  # H2 Database 설정 (학습용 인메모리 DB)
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  # JPA/Hibernate 설정
+  jpa:
+    hibernate:
+      ddl-auto: create-drop # 애플리케이션 시작 시 테이블 생성, 종료 시 삭제
+    show-sql: true # SQL 로그 출력
+    properties:
+      hibernate:
+        format_sql: true # SQL 포맷팅
+        use_sql_comments: true # SQL에 주석 추가
+    open-in-view: false # OSIV 비활성화 (권장)
+
+  # H2 Console 활성화 (개발용)
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+# Logging 설정
+logging:
+  level:
+    be.com.springbootclaude: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+# Actuator 설정
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
