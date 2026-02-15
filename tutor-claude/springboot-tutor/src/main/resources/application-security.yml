@@ -1,0 +1,62 @@
+# Security Configuration
+# 이 파일을 application.yml에 통합하거나 별도로 사용
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          # Google OAuth2
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:your-google-client-id}
+            client-secret: ${GOOGLE_CLIENT_SECRET:your-google-client-secret}
+            scope:
+              - email
+              - profile
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+
+          # GitHub OAuth2
+          github:
+            client-id: ${GITHUB_CLIENT_ID:your-github-client-id}
+            client-secret: ${GITHUB_CLIENT_SECRET:your-github-client-secret}
+            scope:
+              - user:email
+              - read:user
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+
+# JWT 설정
+jwt:
+  # ⚠️ 실제로는 환경변수로 관리! (절대 Git에 커밋하지 말 것)
+  secret: ${JWT_SECRET:dGhpc2lzYXZlcnlsb25nc2VjcmV0a2V5Zm9yand0dG9rZW5zaWduaW5nYW5kdmVyaWZpY2F0aW9ucHVycG9zZXM=}
+
+  # Access Token 유효기간 (밀리초)
+  # 15분 = 900000ms
+  access-token-validity: 900000
+
+  # Refresh Token 유효기간 (밀리초)
+  # 7일 = 604800000ms
+  refresh-token-validity: 604800000
+
+# OAuth2 Redirect URI (프론트엔드)
+app:
+  oauth2:
+    redirect-uri: http://localhost:3000/oauth/redirect
+
+# Redis 설정 (Token Blacklist, Refresh Token 저장)
+# 실제로 Redis를 사용하려면 아래 주석 해제
+#spring:
+#  redis:
+#    host: localhost
+#    port: 6379
+#    password: ${REDIS_PASSWORD:}
+#    lettuce:
+#      pool:
+#        max-active: 10
+#        max-idle: 10
+#        min-idle: 2
+
+# Security 로깅 (개발 환경)
+logging:
+  level:
+    org.springframework.security: DEBUG
+    be.com.springbootclaude.security: DEBUG

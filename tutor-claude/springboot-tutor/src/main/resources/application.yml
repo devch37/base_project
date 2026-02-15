@@ -42,3 +42,18 @@ management:
   endpoint:
     health:
       show-details: always
+
+# JWT 설정
+jwt:
+  # Base64로 인코딩된 Secret Key (최소 256비트)
+  # 실무에서는 환경변수로 관리! (Git에 커밋 금지)
+  secret: dGhpc2lzYXZlcnlsb25nc2VjcmV0a2V5Zm9yand0dG9rZW5zaWduaW5nYW5kdmVyaWZpY2F0aW9ucHVycG9zZXNpdG11c3RiZWF0bGVhc3QyNTZiaXRzbG9uZw==
+  # Access Token 유효기간 (밀리초) - 15분
+  access-token-validity: 900000
+  # Refresh Token 유효기간 (밀리초) - 7일
+  refresh-token-validity: 604800000
+
+# OAuth2 설정
+app:
+  oauth2:
+    redirect-uri: http://localhost:3000/oauth/redirect
