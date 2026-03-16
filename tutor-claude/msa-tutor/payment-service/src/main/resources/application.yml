@@ -1,0 +1,35 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: payment-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      acks: all
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        enable.idempotence: true
+        spring.json.add.type.headers: false
+    consumer:
+      group-id: payment-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: be.com.msatutor.common.event,java.util
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+msa:
+  topics:
+    order-created: order.created.v1
+    order-cancelled: order.cancelled.v1
+    payment-approved: payment.approved.v1
+    payment-failed: payment.failed.v1

@@ -1,0 +1,28 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: notification-service
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: notification-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: be.com.msatutor.common.event,java.util
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+msa:
+  topics:
+    payment-approved: payment.approved.v1
+    payment-failed: payment.failed.v1
+    inventory-reserved: inventory.reserved.v1
+    order-cancelled: order.cancelled.v1

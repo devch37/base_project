@@ -1,0 +1,39 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth
+          uri: http://localhost:8090
+          predicates:
+            - Path=/api/auth/**
+        - id: order
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/orders/**
+        - id: payment
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/payments/**
+        - id: inventory
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/inventory/**
+        - id: notification
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/notifications/**
+
+security:
+  jwt:
+    secret: "replace-this-with-a-very-long-secret-key-at-least-32-bytes"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
