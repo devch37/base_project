@@ -1,0 +1,13 @@
+[package]
+name = "actix-07-error-handling"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = { workspace = true }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+# thiserror: 커스텀 에러 타입을 쉽게 만들어주는 파생 매크로
+thiserror = "2"
+# 실무에서 많이 쓰이는 에러 처리 크레이트

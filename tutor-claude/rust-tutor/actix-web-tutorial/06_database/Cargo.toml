@@ -1,0 +1,17 @@
+[package]
+name = "actix-06-database"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = { workspace = true }
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+# SQLx: 비동기 SQL 데이터베이스 클라이언트
+# sqlite 기능으로 SQLite 드라이버 포함
+# runtime-tokio: tokio 비동기 런타임과 통합
+# macros: sqlx::query_as! 등 컴파일타임 검사 매크로 제공
+sqlx = { version = "0.8", features = ["runtime-tokio", "sqlite", "macros"] }

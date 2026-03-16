@@ -1,0 +1,25 @@
+# Cargo Workspace 설정
+# workspace를 사용하면 여러 크레이트를 하나의 프로젝트로 관리할 수 있습니다.
+# 각 챕터는 독립적인 크레이트이지만, 공통 의존성은 workspace에서 관리합니다.
+
+[workspace]
+members = [
+    "01_basic",
+    "02_routing",
+    "03_request_response",
+    "04_middleware",
+    "05_state",
+    "06_database",
+    "07_error_handling",
+    "08_advanced",
+]
+resolver = "2"
+
+# workspace.dependencies: 모든 크레이트가 공유하는 의존성 버전을 한 곳에서 관리
+[workspace.dependencies]
+actix-web = "4"
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }

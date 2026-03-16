@@ -1,0 +1,9 @@
+[package]
+name = "actix-01-basic"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# workspace.dependencies에서 버전을 상속받습니다
+actix-web = { workspace = true }
+tokio = { workspace = true }

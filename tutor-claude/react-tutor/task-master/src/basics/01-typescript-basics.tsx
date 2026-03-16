@@ -99,7 +99,7 @@ const laptop: Product = {
 
 // 유니온 타입: 여러 타입 중 하나가 될 수 있음
 type Status = "pending" | "approved" | "rejected";
-const orderStatus: Status = "pending";
+const orderStatus: Status = "approved"
 
 // ============================================
 // 6. 함수 (Functions)

@@ -19,6 +19,20 @@ import org.springframework.transaction.annotation.Transactional
  * 5. rollbackFor: 롤백 예외
  * 6. noRollbackFor: 롤백 안 할 예외
  */
+
+fun main() {
+    val maps = HashMap<String, Int>()
+    maps.put("1", 1)
+    maps.put("2", 2)
+    println(maps.size)
+    println(maps)
+    maps.clear()
+    println(maps)
+    println(maps.size)
+    val listTest = ArrayList<String>()
+    listTest.stream()
+}
+
 @Service
 class TransactionDemo {
 

@@ -1,5 +1,6 @@
 package be.com.springbootclaude.advanced.caching
 
+import jakarta.annotation.PostConstruct
 import org.slf4j.LoggerFactory
 import org.springframework.cache.annotation.CacheEvict
 import org.springframework.cache.annotation.CachePut
@@ -189,7 +190,7 @@ class CachingStrategy {
      * - 애플리케이션 시작 시 캐시 미리 로드
      * - 첫 요청 응답 시간 단축
      */
-    // @PostConstruct
+     @PostConstruct
     fun warmUpCache() {
         logger.info("🔥 캐시 워밍업 시작")
         // 인기 상품 100개 미리 캐싱

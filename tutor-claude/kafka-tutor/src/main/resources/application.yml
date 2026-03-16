@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: kafka-tutor
+  datasource:
+    url: jdbc:h2:mem:kafkadb;MODE=PostgreSQL;DB_CLOSE_DELAY=-1
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  kafka:
+    bootstrap-servers: localhost:9092
+    client-id: kafka-tutor
+    producer:
+      acks: all
+      retries: 10
+      properties:
+        enable.idempotence: true
+        max.in.flight.requests.per.connection: 5
+        linger.ms: 5
+        compression.type: zstd
+    consumer:
+      group-id: kafka-tutor-consumer
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      properties:
+        max.poll.records: 500
+    listener:
+      ack-mode: manual
+      missing-topics-fatal: false
+    streams:
+      application-id: kafka-tutor-streams
+      properties:
+        processing.guarantee: exactly_once_v2
+        state.dir: /tmp/kafka-tutor-streams
+
+kafka:
+  topics:
+    order-created: order.created.v1
+    payment-requested: payment.requested.v1
+    order-events: order.events.v1
+    order-events-counts: order.events.counts.v1
+    dlt: order.events.dlt.v1
+
+server:
+  error:
+    include-message: always
+
+logging:
+  level:
+    org.apache.kafka: INFO
+    org.springframework.kafka: INFO

@@ -34,6 +34,9 @@ import { Post as PostEntity } from './post.entity';
  * - main.ts에서 setGlobalPrefix('api') 설정했으므로
  *   실제 경로는 /api/posts
  */
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
 @Controller('posts')
 export class PostsController {
   /**
@@ -52,6 +55,7 @@ export class PostsController {
    *
    * @Query() 데코레이터로 쿼리 파라미터 추출
    */
+
   @Get()
   async findAll(
     @Query('page') page?: string,
@@ -62,6 +66,13 @@ export class PostsController {
     if (keyword) {
       return this.postsService.search(keyword);
     }
+
+    console.log("Loop Start !!!")
+    // await sleep(5000)
+
+    for(let i =0; i < 100000000000000000000000000000; i++) {}
+
+    console.log("Loop End !!!")
 
     // 페이지네이션
     if (page && limit) {

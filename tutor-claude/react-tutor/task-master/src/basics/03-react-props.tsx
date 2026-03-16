@@ -68,7 +68,7 @@ function UserCard({ name, age, email, isActive }: UserCardProps) {
       <p>나이: {age}세</p>
       <p>이메일: {email}</p>
       <p>
-        상태: {isActive ? (
+        상태: { isActive? (
           <span style={{ color: "green" }}>활성</span>
         ) : (
           <span style={{ color: "red" }}>비활성</span>
@@ -245,6 +245,7 @@ function UserListItem({ user, onDelete }: UserListItemProps) {
       border: "1px solid #ddd",
       margin: "5px 0"
     }}>
+      <AlertButton message='test' onClick={() => { console.log('TEST CHECK !!!!') }}></AlertButton>
       <span>{user.name}</span>
       <button onClick={() => onDelete(user.id)}>
         삭제
