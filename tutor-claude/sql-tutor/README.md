@@ -4,20 +4,21 @@ Practice-ready SQL project with a realistic e-commerce + analytics schema, dummy
 
 ## Target DB
 
-The schema is written for PostgreSQL 14+ (works on most modern versions).
+The schema is written for **MySQL 8.0+**.
 
 ## Files
 
-- `schema.sql` - DDL for all tables, constraints, and indexes
+- `schema.sql` - DDL for all tables, constraints, and indexes (MySQL)
 - `seed.sql` - small but coherent dummy data
-- `queries.sql` - basic to advanced exercises
+- `problems.sql` - exercises only (no answers)
+- `answers.sql` - best-practice solutions
 
-## How To Run (Postgres)
+## How To Run (MySQL)
 
 ```bash
-psql -d sql_tutor -f schema.sql
-psql -d sql_tutor -f seed.sql
-psql -d sql_tutor -f queries.sql
+mysql -u root -p -e "CREATE DATABASE IF NOT EXISTS sql_tutor;"
+mysql -u root -p sql_tutor < schema.sql
+mysql -u root -p sql_tutor < seed.sql
 ```
 
 ## What You Will Practice
@@ -26,7 +27,7 @@ psql -d sql_tutor -f queries.sql
 - Multi-table joins (1:N, N:M)
 - Aggregations and HAVING
 - CTEs and recursive CTEs
-- Window functions (rank, lag/lead, percentiles)
+- Window functions (rank, lag/lead, moving averages)
 - Time-series and cohort analysis
 - Funnel and retention queries
 - RFM segmentation
@@ -35,6 +36,5 @@ psql -d sql_tutor -f queries.sql
 
 ## Notes
 
-- All queries are production-style and intentionally complex.
-- Read the comments in `queries.sql` to understand intent and tradeoffs.
+- Use `problems.sql` to practice first, then check `answers.sql` for reference solutions.
 - Some advanced queries will be slow without indexes; those indexes are included in `schema.sql`.

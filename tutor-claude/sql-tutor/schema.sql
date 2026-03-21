@@ -1,142 +1,175 @@
--- SQL Tutor Schema (PostgreSQL)
+-- SQL Tutor Schema (MySQL 8.0+)
 
 CREATE TABLE users (
-    user_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    email TEXT NOT NULL UNIQUE,
-    full_name TEXT NOT NULL,
-    status TEXT NOT NULL CHECK (status IN ('ACTIVE', 'SUSPENDED', 'DELETED')),
-    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+    user_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    full_name VARCHAR(100) NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (status IN ('ACTIVE', 'SUSPENDED', 'DELETED'))
 );
 
 CREATE TABLE addresses (
-    address_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    user_id BIGINT NOT NULL REFERENCES users(user_id),
-    country TEXT NOT NULL,
-    city TEXT NOT NULL,
-    postal_code TEXT NOT NULL,
-    line1 TEXT NOT NULL,
-    line2 TEXT,
-    is_default BOOLEAN NOT NULL DEFAULT FALSE
+    address_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    country CHAR(2) NOT NULL,
+    city VARCHAR(100) NOT NULL,
+    postal_code VARCHAR(20) NOT NULL,
+    line1 VARCHAR(255) NOT NULL,
+    line2 VARCHAR(255),
+    is_default BOOLEAN NOT NULL DEFAULT FALSE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE suppliers (
-    supplier_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name TEXT NOT NULL,
-    country TEXT NOT NULL
+    supplier_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    country CHAR(2) NOT NULL
 );
 
 CREATE TABLE categories (
-    category_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name TEXT NOT NULL UNIQUE
+    category_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
 );
 
 CREATE TABLE products (
-    product_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    supplier_id BIGINT NOT NULL REFERENCES suppliers(supplier_id),
-    sku TEXT NOT NULL UNIQUE,
-    name TEXT NOT NULL,
-    price NUMERIC(12,2) NOT NULL CHECK (price >= 0),
+    product_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    supplier_id BIGINT NOT NULL,
+    sku VARCHAR(50) NOT NULL UNIQUE,
+    name VARCHAR(200) NOT NULL,
+    price DECIMAL(12,2) NOT NULL,
     is_active BOOLEAN NOT NULL DEFAULT TRUE,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (price >= 0),
+    FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id)
 );
 
 CREATE TABLE product_categories (
-    product_id BIGINT NOT NULL REFERENCES products(product_id),
-    category_id BIGINT NOT NULL REFERENCES categories(category_id),
-    PRIMARY KEY (product_id, category_id)
+    product_id BIGINT NOT NULL,
+    category_id BIGINT NOT NULL,
+    PRIMARY KEY (product_id, category_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id),
+    FOREIGN KEY (category_id) REFERENCES categories(category_id)
 );
 
 CREATE TABLE warehouses (
-    warehouse_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name TEXT NOT NULL,
-    country TEXT NOT NULL
+    warehouse_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    country CHAR(2) NOT NULL
 );
 
 CREATE TABLE inventory (
-    warehouse_id BIGINT NOT NULL REFERENCES warehouses(warehouse_id),
-    product_id BIGINT NOT NULL REFERENCES products(product_id),
+    warehouse_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
     on_hand INT NOT NULL DEFAULT 0,
     reserved INT NOT NULL DEFAULT 0,
-    PRIMARY KEY (warehouse_id, product_id)
+    PRIMARY KEY (warehouse_id, product_id),
+    FOREIGN KEY (warehouse_id) REFERENCES warehouses(warehouse_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
 CREATE TABLE orders (
-    order_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    user_id BIGINT NOT NULL REFERENCES users(user_id),
-    order_status TEXT NOT NULL CHECK (order_status IN ('CREATED', 'PAID', 'SHIPPED', 'CANCELLED', 'REFUNDED')),
-    order_total NUMERIC(12,2) NOT NULL CHECK (order_total >= 0),
-    placed_at TIMESTAMP NOT NULL DEFAULT NOW()
+    order_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    order_status VARCHAR(20) NOT NULL,
+    order_total DECIMAL(12,2) NOT NULL,
+    placed_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (order_status IN ('CREATED', 'PAID', 'SHIPPED', 'CANCELLED', 'REFUNDED')),
+    CHECK (order_total >= 0),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE order_items (
-    order_item_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    order_id BIGINT NOT NULL REFERENCES orders(order_id),
-    product_id BIGINT NOT NULL REFERENCES products(product_id),
-    unit_price NUMERIC(12,2) NOT NULL CHECK (unit_price >= 0),
-    quantity INT NOT NULL CHECK (quantity > 0)
+    order_item_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    order_id BIGINT NOT NULL,
+    product_id BIGINT NOT NULL,
+    unit_price DECIMAL(12,2) NOT NULL,
+    quantity INT NOT NULL,
+    CHECK (unit_price >= 0),
+    CHECK (quantity > 0),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
 CREATE TABLE payments (
-    payment_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    order_id BIGINT NOT NULL REFERENCES orders(order_id),
-    amount NUMERIC(12,2) NOT NULL CHECK (amount >= 0),
-    method TEXT NOT NULL CHECK (method IN ('CARD', 'BANK', 'WALLET')),
-    status TEXT NOT NULL CHECK (status IN ('APPROVED', 'DECLINED', 'REFUNDED')),
-    paid_at TIMESTAMP
+    payment_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    order_id BIGINT NOT NULL,
+    amount DECIMAL(12,2) NOT NULL,
+    method VARCHAR(10) NOT NULL,
+    status VARCHAR(10) NOT NULL,
+    paid_at DATETIME,
+    CHECK (amount >= 0),
+    CHECK (method IN ('CARD', 'BANK', 'WALLET')),
+    CHECK (status IN ('APPROVED', 'DECLINED', 'REFUNDED')),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
 );
 
 CREATE TABLE shipments (
-    shipment_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    order_id BIGINT NOT NULL REFERENCES orders(order_id),
-    warehouse_id BIGINT NOT NULL REFERENCES warehouses(warehouse_id),
-    carrier TEXT NOT NULL,
-    tracking_no TEXT,
-    shipped_at TIMESTAMP,
-    delivered_at TIMESTAMP
+    shipment_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    order_id BIGINT NOT NULL,
+    warehouse_id BIGINT NOT NULL,
+    carrier VARCHAR(50) NOT NULL,
+    tracking_no VARCHAR(50),
+    shipped_at DATETIME,
+    delivered_at DATETIME,
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (warehouse_id) REFERENCES warehouses(warehouse_id)
 );
 
 CREATE TABLE returns (
-    return_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    order_id BIGINT NOT NULL REFERENCES orders(order_id),
-    reason TEXT NOT NULL,
-    status TEXT NOT NULL CHECK (status IN ('REQUESTED', 'APPROVED', 'REJECTED', 'RECEIVED')),
-    requested_at TIMESTAMP NOT NULL DEFAULT NOW()
+    return_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    order_id BIGINT NOT NULL,
+    reason VARCHAR(50) NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    requested_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (status IN ('REQUESTED', 'APPROVED', 'REJECTED', 'RECEIVED')),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id)
 );
 
 CREATE TABLE coupons (
-    coupon_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    code TEXT NOT NULL UNIQUE,
-    discount_pct NUMERIC(5,2) NOT NULL CHECK (discount_pct BETWEEN 0 AND 100),
-    is_active BOOLEAN NOT NULL DEFAULT TRUE
+    coupon_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    code VARCHAR(50) NOT NULL UNIQUE,
+    discount_pct DECIMAL(5,2) NOT NULL,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+    CHECK (discount_pct BETWEEN 0 AND 100)
 );
 
 CREATE TABLE order_coupons (
-    order_id BIGINT NOT NULL REFERENCES orders(order_id),
-    coupon_id BIGINT NOT NULL REFERENCES coupons(coupon_id),
-    PRIMARY KEY (order_id, coupon_id)
+    order_id BIGINT NOT NULL,
+    coupon_id BIGINT NOT NULL,
+    PRIMARY KEY (order_id, coupon_id),
+    FOREIGN KEY (order_id) REFERENCES orders(order_id),
+    FOREIGN KEY (coupon_id) REFERENCES coupons(coupon_id)
 );
 
 CREATE TABLE reviews (
-    review_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    product_id BIGINT NOT NULL REFERENCES products(product_id),
-    user_id BIGINT NOT NULL REFERENCES users(user_id),
-    rating INT NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    review_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    product_id BIGINT NOT NULL,
+    user_id BIGINT NOT NULL,
+    rating INT NOT NULL,
     review_text TEXT,
-    created_at TIMESTAMP NOT NULL DEFAULT NOW()
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (rating BETWEEN 1 AND 5),
+    FOREIGN KEY (product_id) REFERENCES products(product_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE web_sessions (
-    session_id TEXT PRIMARY KEY,
-    user_id BIGINT REFERENCES users(user_id),
-    started_at TIMESTAMP NOT NULL DEFAULT NOW()
+    session_id VARCHAR(64) PRIMARY KEY,
+    user_id BIGINT,
+    started_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 CREATE TABLE web_events (
-    event_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    session_id TEXT NOT NULL REFERENCES web_sessions(session_id),
-    event_type TEXT NOT NULL CHECK (event_type IN ('VIEW', 'ADD_TO_CART', 'CHECKOUT', 'PURCHASE')),
-    product_id BIGINT REFERENCES products(product_id),
-    occurred_at TIMESTAMP NOT NULL DEFAULT NOW()
+    event_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    session_id VARCHAR(64) NOT NULL,
+    event_type VARCHAR(20) NOT NULL,
+    product_id BIGINT,
+    occurred_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CHECK (event_type IN ('VIEW', 'ADD_TO_CART', 'CHECKOUT', 'PURCHASE')),
+    FOREIGN KEY (session_id) REFERENCES web_sessions(session_id),
+    FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
 -- Indexes for real-world query performance
