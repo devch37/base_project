@@ -10,7 +10,7 @@ class BeanChecker : BeanPostProcessor {
     override fun postProcessAfterInitialization(bean: Any, name: String): Any {
         println("BEAM CLASS : " + bean + " BEAN NAME : " + name)
 
-        if (AopUtils.isAopProxy(bean)) {
+        if (AopUtils.isAoProxy(bean)) {
             println("[AOP-Proxy] " + name + " -> " + bean.javaClass)
         }
         return bean
