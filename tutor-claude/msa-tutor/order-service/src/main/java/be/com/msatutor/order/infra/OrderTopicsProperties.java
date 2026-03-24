@@ -6,8 +6,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public record OrderTopicsProperties(
     String orderCreated,
     String orderCancelled,
+    String orderCompleted,
     String paymentApproved,
     String paymentFailed,
-    String inventoryReserved
+    String inventoryReserved,
+    String inventoryReservationFailed,
+    String inventoryReleased,
+    String inventoryReserveCommand,
+    String inventoryReleaseCommand,
+    String paymentAuthorizeCommand
 ) {
 }

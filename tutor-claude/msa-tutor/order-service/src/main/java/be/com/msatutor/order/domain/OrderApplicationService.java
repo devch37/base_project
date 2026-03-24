@@ -1,8 +1,8 @@
 package be.com.msatutor.order.domain;
 
 import be.com.msatutor.order.api.OrderRequest;
-import be.com.msatutor.order.infra.OrderTopicsProperties;
 import be.com.msatutor.order.outbox.OutboxService;
+import be.com.msatutor.order.saga.SagaOrchestrator;
 import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,19 +12,19 @@ public class OrderApplicationService {
 
     private final OrderRepository orderRepository;
     private final IdempotencyRepository idempotencyRepository;
-    private final OrderTopicsProperties topics;
     private final OutboxService outboxService;
+    private final SagaOrchestrator sagaOrchestrator;
 
     public OrderApplicationService(
         OrderRepository orderRepository,
         IdempotencyRepository idempotencyRepository,
-        OrderTopicsProperties topics,
-        OutboxService outboxService
+        OutboxService outboxService,
+        SagaOrchestrator sagaOrchestrator
     ) {
         this.orderRepository = orderRepository;
         this.idempotencyRepository = idempotencyRepository;
-        this.topics = topics;
         this.outboxService = outboxService;
+        this.sagaOrchestrator = sagaOrchestrator;
     }
 
     @Transactional
@@ -37,7 +37,8 @@ public class OrderApplicationService {
         Order order = new Order();
         order.setCustomerId(request.customerId());
         order.setAmount(request.amount());
-        order.setStatus(OrderStatus.PAYMENT_PENDING);
+        // Initial state before saga orchestration starts.
+        order.setStatus(OrderStatus.CREATED);
         orderRepository.save(order);
 
         if (idempotencyKey != null) {
@@ -60,6 +61,10 @@ public class OrderApplicationService {
             Map.of("correlationId", correlationId == null ? "" : correlationId)
         );
 
+        // Start orchestration Saga inside the same DB transaction.
+        // This guarantees that the saga state and the outbox command are consistent.
+        sagaOrchestrator.startSaga(order, correlationId);
+
         return order;
     }
 
@@ -74,8 +79,8 @@ public class OrderApplicationService {
         Order order = orderRepository.findById(orderId).orElseThrow();
         order.setStatus(OrderStatus.PAYMENT_FAILED);
 
-        // Compensation trigger: emit cancellation event for downstream services.
-        // This is a simple choreography-style Saga.
+        // Legacy path kept for reference: in the current orchestration saga,
+        // compensation is handled by SagaOrchestrator instead of directly here.
         outboxService.enqueue(
             "Order",
             String.valueOf(order.getId()),

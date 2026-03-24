@@ -7,6 +7,9 @@ public record NotificationTopicsProperties(
     String paymentApproved,
     String paymentFailed,
     String inventoryReserved,
-    String orderCancelled
+    String inventoryReservationFailed,
+    String inventoryReleased,
+    String orderCancelled,
+    String orderCompleted
 ) {
 }

@@ -25,4 +25,7 @@ msa:
     payment-approved: payment.approved.v1
     payment-failed: payment.failed.v1
     inventory-reserved: inventory.reserved.v1
+    inventory-reservation-failed: inventory.reservation.failed.v1
+    inventory-released: inventory.released.v1
     order-cancelled: order.cancelled.v1
+    order-completed: order.completed.v1

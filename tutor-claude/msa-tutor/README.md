@@ -105,6 +105,8 @@ Note: the JWT secret in `api-gateway` and `auth-service` must match.
 
 - There is no global ACID transaction across services.
 - Use Saga (orchestration or choreography) and compensating actions.
+- Global transaction (2PC/XA) is avoided in practice due to tight coupling, blocking, and failure amplification.
+  - If you truly need atomicity, consider a dedicated workflow engine or TCC with strict operational controls.
 
 ### 8) Outbox Pattern
 
@@ -144,7 +146,10 @@ Note: the JWT secret in `api-gateway` and `auth-service` must match.
 - Auth token issuance: `auth-service/src/main/java/be/com/msatutor/auth/security/JwtTokenService.java`
 - Order API + idempotency: `order-service/src/main/java/be/com/msatutor/order/api/OrderController.java`
 - Outbox publisher: `order-service/src/main/java/be/com/msatutor/order/outbox/OutboxPublisher.java`
-- Payment consumer + publisher: `payment-service/src/main/java/be/com/msatutor/payment/infra/OrderCreatedConsumer.java`
+- Saga orchestrator: `order-service/src/main/java/be/com/msatutor/order/saga/SagaOrchestrator.java`
+- Saga retry scheduler: `order-service/src/main/java/be/com/msatutor/order/saga/SagaRetryScheduler.java`
+- Payment command consumer + publisher: `payment-service/src/main/java/be/com/msatutor/payment/infra/PaymentCommandConsumer.java`
+- Inventory command consumer + publisher: `inventory-service/src/main/java/be/com/msatutor/inventory/infra/InventoryCommandConsumer.java`
 - Shared event envelope: `common/src/main/java/be/com/msatutor/common/event/EventEnvelope.java`
 
 ## Notes

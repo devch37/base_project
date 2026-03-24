@@ -33,13 +33,17 @@ public class PaymentProcessor {
     }
 
     public void reject(String orderId, String correlationId) {
+        reject(orderId, correlationId, "PAYMENT_FAILED");
+    }
+
+    public void reject(String orderId, String correlationId, String reason) {
         EventEnvelope event = new EventEnvelope(
             UUID.randomUUID().toString(),
             "PAYMENT_FAILED",
             "Payment",
             orderId,
             Instant.now(),
-            Map.of("orderId", orderId, "status", "FAILED"),
+            Map.of("orderId", orderId, "status", "FAILED", "reason", reason),
             Map.of("correlationId", correlationId)
         );
         kafkaTemplate.send(topics.paymentFailed(), orderId, event);

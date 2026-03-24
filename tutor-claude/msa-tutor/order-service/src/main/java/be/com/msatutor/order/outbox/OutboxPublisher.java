@@ -77,7 +77,11 @@ public class OutboxPublisher {
         return switch (eventType) {
             case "ORDER_CREATED" -> topics.orderCreated();
             case "ORDER_CANCELLED" -> topics.orderCancelled();
-            default -> topics.orderCreated();
+            case "ORDER_COMPLETED" -> topics.orderCompleted();
+            case "INVENTORY_RESERVE_COMMAND" -> topics.inventoryReserveCommand();
+            case "INVENTORY_RELEASE_COMMAND" -> topics.inventoryReleaseCommand();
+            case "PAYMENT_AUTHORIZE_COMMAND" -> topics.paymentAuthorizeCommand();
+            default -> throw new IllegalArgumentException("Unknown event type: " + eventType);
         };
     }
 }

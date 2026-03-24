@@ -6,6 +6,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public record InventoryTopicsProperties(
     String orderCreated,
     String orderCancelled,
-    String inventoryReserved
+    String inventoryReserved,
+    String inventoryReservationFailed,
+    String inventoryReleased,
+    String inventoryReserveCommand,
+    String inventoryReleaseCommand
 ) {
 }

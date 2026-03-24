@@ -22,8 +22,23 @@ public class NotificationConsumer {
         System.out.printf("[Notification] Inventory reserved: %s%n", event);
     }
 
+    @KafkaListener(topics = "#{notificationTopicsProperties.inventoryReservationFailed()}", groupId = "notification-service")
+    public void onInventoryReservationFailed(Map<String, Object> event) {
+        System.out.printf("[Notification] Inventory reservation failed: %s%n", event);
+    }
+
+    @KafkaListener(topics = "#{notificationTopicsProperties.inventoryReleased()}", groupId = "notification-service")
+    public void onInventoryReleased(Map<String, Object> event) {
+        System.out.printf("[Notification] Inventory released: %s%n", event);
+    }
+
     @KafkaListener(topics = "#{notificationTopicsProperties.orderCancelled()}", groupId = "notification-service")
     public void onOrderCancelled(Map<String, Object> event) {
         System.out.printf("[Notification] Order cancelled: %s%n", event);
+    }
+
+    @KafkaListener(topics = "#{notificationTopicsProperties.orderCompleted()}", groupId = "notification-service")
+    public void onOrderCompleted(Map<String, Object> event) {
+        System.out.printf("[Notification] Order completed: %s%n", event);
     }
 }

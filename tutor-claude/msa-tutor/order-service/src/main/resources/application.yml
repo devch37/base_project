@@ -39,10 +39,22 @@ management:
 outbox:
   poll-interval-ms: 2000
 
+saga:
+  step-timeout-ms: 15000
+  max-retries: 3
+  base-backoff-ms: 2000
+  retry-scan-ms: 5000
+
 msa:
   topics:
     order-created: order.created.v1
     order-cancelled: order.cancelled.v1
+    order-completed: order.completed.v1
     payment-approved: payment.approved.v1
     payment-failed: payment.failed.v1
     inventory-reserved: inventory.reserved.v1
+    inventory-reservation-failed: inventory.reservation.failed.v1
+    inventory-released: inventory.released.v1
+    inventory-reserve-command: inventory.reserve.command.v1
+    inventory-release-command: inventory.release.command.v1
+    payment-authorize-command: payment.authorize.command.v1

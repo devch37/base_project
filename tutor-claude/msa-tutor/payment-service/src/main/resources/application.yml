@@ -33,3 +33,4 @@ msa:
     order-cancelled: order.cancelled.v1
     payment-approved: payment.approved.v1
     payment-failed: payment.failed.v1
+    payment-authorize-command: payment.authorize.command.v1
