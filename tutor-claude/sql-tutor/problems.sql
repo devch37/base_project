@@ -2,15 +2,31 @@
 
 -- 1) Basic: active users with signup date
 -- Return active users with their signup date, newest first.
+SELECT u.* FROM study.users u WHERE o.status = 'ACTIVE' ORDER BY created_at;
 
 -- 2) Basic join: orders with payment status and amount
 -- Show orders with payment status/amount if present.
+    SELECT    o.order_id
+            , o.order_status
+            , p.status
+	        , p.amount  
+	  FROM study.orders o
+INNER JOIN study.payments p
+        ON o.order_id = p.order_id;
 
 -- 3) Basic aggregation: total revenue by day
 -- Daily revenue for paid/shipped/refunded orders.
+   SELECT    o.order_status
+           , SUM(o.order_total)
+           , DATE(o.placed_at)
+      FROM study.orders o
+  GROUP BY o.order_status, DATE(o.placed_at);
 
 -- 4) Join + group: revenue by product
 -- Total revenue per product for paid/shipped/refunded orders.
+
+
+
 
 -- 5) Multi-join: category revenue contribution
 -- Revenue per category for paid/shipped/refunded orders.
