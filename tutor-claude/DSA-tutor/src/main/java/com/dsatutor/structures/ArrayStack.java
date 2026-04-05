@@ -1,5 +1,7 @@
 package com.dsatutor.structures;
 
+import java.util.ArrayList;
+
 /**
  * 배열 기반 스택 (LIFO).
  *

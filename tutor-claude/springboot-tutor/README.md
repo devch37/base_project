@@ -350,6 +350,13 @@ Phase 1을 완료했다면 다음 주제를 학습할 준비가 되었습니다:
 - **Event-Driven Architecture** - `@EventListener`, `@TransactionalEventListener`
 - **Async Programming** - `@Async`, `CompletableFuture`
 
+## Phase 3: Integration (gRPC & GraphQL) ✅
+
+실무에서 많이 쓰는 통신 방식인 gRPC/GraphQL 학습 예제를 추가했습니다.
+
+- **gRPC**: `src/main/kotlin/be/com/springbootclaude/integration/grpc/README.md`
+- **GraphQL**: `src/main/kotlin/be/com/springbootclaude/integration/graphql/README.md`
+
 ## 참고 자료
 
 - [Spring Boot 공식 문서](https://docs.spring.io/spring-boot/docs/current/reference/html/)

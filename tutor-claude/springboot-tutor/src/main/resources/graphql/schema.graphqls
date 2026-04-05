@@ -1,0 +1,105 @@
+"""
+GraphQL Schema (basic ~ advanced)
+- Query: 조회 전용
+- Mutation: 상태 변경 전용
+"""
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+scalar Long
+
+type Query {
+  userById(id: ID!): User!
+  userByEmail(email: String!): User!
+
+  articleById(id: ID!): Article!
+  publishedArticles(page: Int = 0, size: Int = 10): ArticlePage!
+  searchArticles(keyword: String!, page: Int = 0, size: Int = 10): ArticlePage!
+  searchArticlesAdvanced(filter: ArticleFilterInput, page: Int = 0, size: Int = 10): ArticlePage!
+  publishedArticlesCursor(input: CursorPageInput): ArticleConnection!
+}
+
+type Mutation {
+  createArticle(input: CreateArticleInput!): ArticlePayload!
+  publishArticle(id: ID!): ArticlePayload!
+}
+
+type User {
+  id: ID!
+  email: String!
+  name: String!
+  role: String!
+}
+
+type Article {
+  id: ID!
+  title: String!
+  content: String!
+  status: ArticleStatus!
+  viewCount: Long!
+  author: User! # advanced: @BatchMapping으로 N+1 해결
+  authorViaLoader: User! # advanced: DataLoader 예제
+  createdAt: String!
+  updatedAt: String!
+}
+
+enum ArticleStatus {
+  DRAFT
+  PUBLISHED
+  DELETED
+}
+
+type ArticlePage {
+  content: [Article!]!
+  pageInfo: PageInfo!
+}
+
+type ArticleConnection {
+  edges: [ArticleEdge!]!
+  pageInfo: CursorPageInfo!
+}
+
+type ArticleEdge {
+  cursor: String!
+  node: Article!
+}
+
+type CursorPageInfo {
+  endCursor: String
+  hasNext: Boolean!
+}
+
+type PageInfo {
+  page: Int!
+  size: Int!
+  totalElements: Long!
+  totalPages: Int!
+  hasNext: Boolean!
+}
+
+input CreateArticleInput {
+  authorId: ID!
+  title: String!
+  content: String!
+}
+
+input ArticleFilterInput {
+  status: ArticleStatus
+  authorId: Long
+  keyword: String
+  from: String
+  to: String
+}
+
+input CursorPageInput {
+  after: String
+  size: Int = 10
+}
+
+type ArticlePayload {
+  article: Article!
+  message: String
+}

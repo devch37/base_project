@@ -1,6 +1,9 @@
 package com.dsatutor.structures;
 
+import java.io.File;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * ArrayList의 핵심 아이디어를 축약한 동적 배열.
@@ -18,7 +21,6 @@ public class DynamicArray {
     }
 
     public DynamicArray(int capacity) {
-        if (capacity < 1) capacity = 1;
         this.data = new int[capacity];
         this.size = 0;
     }

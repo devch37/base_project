@@ -69,6 +69,8 @@ class SecurityConfig(
                         "/oauth2/**",             // OAuth2 엔드포인트
                         "/h2-console/**",         // H2 Console
                         "/actuator/health",       // Health Check
+                        "/graphql",               // GraphQL Endpoint
+                        "/graphiql",              // GraphiQL UI
                         "/swagger-ui/**",         // Swagger
                         "/v3/api-docs/**"
                     ).permitAll()

@@ -4,10 +4,15 @@ plugins {
     kotlin("plugin.jpa") version "2.3.0"
     id("org.springframework.boot") version "3.4.2"
     id("io.spring.dependency-management") version "1.1.7"
+    id("com.google.protobuf") version "0.9.4"
 }
 
 group = "be.com"
 version = "1.0-SNAPSHOT"
+
+val grpcVersion = "1.63.0"
+val grpcKotlinVersion = "1.4.1"
+val protobufVersion = "4.27.0"
 
 java {
     toolchain {
@@ -26,6 +31,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-graphql")
 
     // Security
     implementation("org.springframework.boot:spring-boot-starter-security")
@@ -39,6 +45,7 @@ dependencies {
     // Kotlin Support
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
 
     // Database
     runtimeOnly("com.h2database:h2") // 학습용 인메모리 DB
@@ -48,6 +55,21 @@ dependencies {
 
     // Logging
     implementation("io.github.oshai:kotlin-logging-jvm:7.0.3")
+
+    // gRPC (Spring Boot + Kotlin)
+    implementation(platform("io.grpc:grpc-bom:$grpcVersion"))
+    implementation(platform("com.google.protobuf:protobuf-bom:$protobufVersion"))
+    implementation("io.grpc:grpc-kotlin-stub")
+    implementation("io.grpc:grpc-protobuf")
+    implementation("io.grpc:grpc-stub")
+    implementation("io.grpc:grpc-services")
+    implementation("com.google.protobuf:protobuf-kotlin")
+    implementation("net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE")
+    implementation("net.devh:grpc-client-spring-boot-starter:3.1.0.RELEASE")
+
+    // GraphQL (Custom Scalars)
+    implementation("com.graphql-java:graphql-java-extended-scalars:22.0")
+    implementation("org.dataloader:java-dataloader:3.2.2")
 
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
@@ -74,4 +96,39 @@ allOpen {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:$protobufVersion"
+    }
+    plugins {
+        id("grpc") {
+            artifact = "io.grpc:protoc-gen-grpc-java:$grpcVersion"
+        }
+        id("grpckt") {
+            artifact = "io.grpc:protoc-gen-grpc-kotlin:$grpcKotlinVersion:jdk8@jar"
+        }
+    }
+    generateProtoTasks {
+        all().forEach { task ->
+            task.plugins {
+                id("grpc")
+                id("grpckt")
+            }
+            task.builtins {
+                id("kotlin")
+            }
+        }
+    }
+}
+
+sourceSets {
+    val main by getting {
+        java.srcDirs(
+            "build/generated/source/proto/main/grpc",
+            "build/generated/source/proto/main/grpckt"
+        )
+        kotlin.srcDirs("build/generated/source/proto/main/kotlin")
+    }
 }

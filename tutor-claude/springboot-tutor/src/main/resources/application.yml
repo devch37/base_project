@@ -26,6 +26,12 @@ spring:
       enabled: true
       path: /h2-console
 
+  # GraphQL 설정
+  graphql:
+    path: /graphql
+    graphiql:
+      enabled: true # 개발용 GraphiQL UI
+
 # Logging 설정
 logging:
   level:
@@ -42,6 +48,16 @@ management:
   endpoint:
     health:
       show-details: always
+
+# gRPC 설정
+grpc:
+  server:
+    port: 9090 # REST(8080)와 분리하는 것이 실무에서 일반적입니다.
+    reflection-service-enabled: true # grpcurl / grpcui에서 편하게 탐색
+  client:
+    local:
+      address: static://localhost:9090
+      negotiationType: plaintext
 
 # JWT 설정
 jwt:

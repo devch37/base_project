@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package be.com.springbootclaude.grpc;
+
+option java_multiple_files = true;
+option java_package = "be.com.springbootclaude.grpc";
+option java_outer_classname = "GreetingProto";
+
+// Greeter 서비스: gRPC 기본/고급 학습용
+// - unary: SayHello
+// - server streaming: StreamGreetings
+service Greeter {
+  rpc SayHello (HelloRequest) returns (HelloReply);
+  rpc StreamGreetings (GreetingRequest) returns (stream HelloReply);
+}
+
+message HelloRequest {
+  string name = 1;
+  // 클라이언트가 생성한 요청 ID (트레이싱 목적)
+  string request_id = 2;
+}
+
+message GreetingRequest {
+  string name = 1;
+  // 몇 번 인사할지 (streaming 예제)
+  int32 count = 2;
+}
+
+message HelloReply {
+  string message = 1;
+  string request_id = 2;
+  // 서버 기준 시간(ISO-8601 문자열)
+  string server_time = 3;
+}
