@@ -46,8 +46,7 @@ public class DynamicArray {
 
     public int removeLast() {
         if (size == 0) throw new IllegalStateException("empty");
-        int v = data[--size];
-        return v;
+        return data[--size];
     }
 
     private void ensureCapacity(int required) {
