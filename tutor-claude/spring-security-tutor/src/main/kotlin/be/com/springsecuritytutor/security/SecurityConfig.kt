@@ -32,6 +32,13 @@ class SecurityConfig(
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
+            .oidcLogout()
+            .and()
+//            .and()
+
+
+
+        http
             // API style: JWT + stateless, so we disable CSRF and sessions.
             .csrf { it.disable() }
             .cors { }
@@ -49,13 +56,9 @@ class SecurityConfig(
                 it.authenticationEntryPoint(securityExceptionHandler)
                 it.accessDeniedHandler(securityExceptionHandler)
             }
-            .headers { headers ->
-                // H2 console uses iframes in dev.
-                headers.frameOptions { frameOptions -> frameOptions.sameOrigin() }
-            }
+            .headers {  it.frameOptions { fromOptions -> fromOptions.sameOrigin() } }
             // JWT is validated before UsernamePasswordAuthenticationFilter runs.
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
-
         return http.build()
     }
 }

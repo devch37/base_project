@@ -8,7 +8,16 @@
       "Bash(kill:*)",
       "Bash(pkill:*)",
       "Bash(curl:*)",
-      "Bash(wc -l /Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/network-tutor/chapters/**/*.md)"
+      "Bash(wc -l /Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/network-tutor/chapters/**/*.md)",
+      "Bash(mkdir -p /Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/clean-architecture-tutor/src/main/java/com/tutor/library)",
+      "Bash(mkdir -p /Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/clean-architecture-tutor/src/main/java/com/tutor/library/_1_bad_example)",
+      "Bash(mkdir -p /Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/clean-architecture-tutor/src/main/java/com/tutor/library/_2_clean_code/naming)",
+      "Bash(mkdir -p /Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/clean-architecture-tutor/src/main/java/com/tutor/library/_2_clean_code/functions)",
+      "Bash(mkdir -p /Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/clean-architecture-tutor/src/main/java/com/tutor/library/_2_clean_code/solid/srp)",
+      "Bash(./gradlew compileJava)",
+      "Bash(gradle wrapper *)",
+      "Bash(./gradlew test *)",
+      "Bash(npm install *)"
     ]
   }
 }
