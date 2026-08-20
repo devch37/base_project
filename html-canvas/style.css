@@ -1,0 +1,237 @@
+/* ============================================================
+   전역 변수 (라이트/다크 모드 모두 대응)
+   ============================================================ */
+:root {
+  --bg: #f5f6fa;
+  --panel: #ffffff;
+  --border: #e2e4ea;
+  --text: #1c1e26;
+  --text-dim: #6b7080;
+  --accent: #5b6cff;
+  --accent-dim: #eef0ff;
+  --code-bg: #1e1f29;
+  --code-text: #e6e6e6;
+  --shadow: 0 2px 10px rgba(20, 20, 40, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #14151c;
+    --panel: #1c1d27;
+    --border: #2c2e3a;
+    --text: #e8e9f0;
+    --text-dim: #9497a8;
+    --accent: #7c8bff;
+    --accent-dim: #262a4a;
+    --code-bg: #10111a;
+    --code-text: #e6e6e6;
+    --shadow: 0 2px 14px rgba(0, 0, 0, 0.4);
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Apple SD Gothic Neo",
+    "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+/* ============================================================
+   레이아웃
+   ============================================================ */
+.app {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+}
+
+.sidebar {
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  padding: 24px 16px;
+  overflow-y: auto;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.logo { font-size: 20px; margin: 0 0 2px 4px; }
+.logo-sub { font-size: 12px; color: var(--text-dim); margin: 0 0 20px 4px; }
+
+.nav-category { margin-bottom: 18px; }
+.nav-category-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin: 0 0 6px 8px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: left;
+  padding: 9px 10px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 13.5px;
+  cursor: pointer;
+  margin-bottom: 2px;
+}
+.nav-item:hover { background: var(--accent-dim); }
+.nav-item.active {
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+}
+.nav-item .num {
+  font-size: 11px;
+  opacity: 0.6;
+  width: 18px;
+  flex-shrink: 0;
+}
+
+.content {
+  padding: 28px 36px 60px;
+  max-width: 980px;
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+#demo-title { margin: 0 0 4px; font-size: 22px; }
+#demo-desc { margin: 0; color: var(--text-dim); font-size: 13.5px; max-width: 60ch; line-height: 1.5; }
+
+.header-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+.btn {
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.btn:hover { border-color: var(--accent); }
+.btn-primary { background: var(--accent); color: white; border-color: var(--accent); }
+
+.stage-wrap {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+#stage {
+  width: 100%;
+  height: 480px;
+  display: block;
+  border-radius: 10px;
+  background: #ffffff;
+  cursor: crosshair;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  align-items: center;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border);
+  font-size: 13px;
+}
+.controls:empty { display: none; }
+.controls label { display: flex; align-items: center; gap: 6px; color: var(--text-dim); }
+.controls input[type="range"] { width: 120px; }
+.controls select,
+.controls input[type="color"] { border-radius: 6px; border: 1px solid var(--border); }
+.controls button {
+  border: 1px solid var(--border);
+  background: var(--accent-dim);
+  color: var(--accent);
+  padding: 6px 12px;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 12.5px;
+}
+
+.demo-points {
+  margin: 18px 4px 0;
+  padding-left: 18px;
+  color: var(--text-dim);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* ============================================================
+   코드 보기 오버레이
+   ============================================================ */
+.code-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 16, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 40px;
+}
+.code-overlay.hidden { display: none; }
+
+.code-panel {
+  background: var(--code-bg);
+  border-radius: 12px;
+  width: min(880px, 100%);
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.code-panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  color: #cfd1e0;
+  font-size: 12.5px;
+  border-bottom: 1px solid #2c2e3a;
+}
+.code-panel-header .btn { background: transparent; color: #cfd1e0; border-color: #3a3c4a; }
+
+.code-pre {
+  margin: 0;
+  padding: 18px 20px;
+  overflow: auto;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--code-text);
+}
+
+/* 아주 가벼운 문법 하이라이트 */
+.tok-comment { color: #7ad06d; }
+.tok-string { color: #e0a05a; }
+.tok-keyword { color: #7c9bff; }
+.tok-func { color: #f5d76e; }
+
+@media (max-width: 860px) {
+  .app { grid-template-columns: 1fr; }
+  .sidebar { position: static; height: auto; }
+  .content { padding: 20px; }
+}

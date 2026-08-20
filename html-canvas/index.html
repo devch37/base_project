@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HTML Canvas 기능 튜토리얼</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- ===================== 사이드바 : 데모 목록 ===================== -->
+    <aside class="sidebar">
+      <h1 class="logo">🎨 Canvas Tutorial</h1>
+      <p class="logo-sub">HTML5 Canvas API 기능 모음</p>
+      <nav id="nav-list" class="nav-list">
+        <!-- js/main.js 가 카테고리/데모 목록을 여기에 자동으로 렌더링합니다 -->
+      </nav>
+    </aside>
+
+    <!-- ===================== 메인 콘텐츠 ===================== -->
+    <main class="content">
+      <header class="content-header">
+        <div>
+          <h2 id="demo-title">제목</h2>
+          <p id="demo-desc">설명</p>
+        </div>
+        <div class="header-actions">
+          <button id="btn-restart" class="btn">↻ 다시 시작</button>
+          <button id="btn-code" class="btn btn-primary">&lt;/&gt; 코드 보기</button>
+        </div>
+      </header>
+
+      <div class="stage-wrap">
+        <canvas id="stage"></canvas>
+        <!-- 데모별로 필요한 조작 UI(슬라이더, 버튼 등)를 여기에 붙입니다 -->
+        <div id="controls" class="controls"></div>
+      </div>
+
+      <ul id="demo-points" class="demo-points"></ul>
+    </main>
+  </div>
+
+  <!-- ===================== 코드 보기 패널 ===================== -->
+  <div id="code-overlay" class="code-overlay hidden">
+    <div class="code-panel">
+      <div class="code-panel-header">
+        <span id="code-filename">demo.js</span>
+        <button id="btn-close-code" class="btn">닫기 ✕</button>
+      </div>
+      <pre class="code-pre"><code id="code-content"></code></pre>
+    </div>
+  </div>
+
+  <!-- 코어 로직 (데모 등록/전환/캔버스 관리) -->
+  <script src="js/main.js"></script>
+
+  <!-- 데모들: 각 파일이 registerDemo() 로 자기 자신을 등록합니다 -->
+  <script src="js/demos/01-shapes.js"></script>
+  <script src="js/demos/02-colors-gradients.js"></script>
+  <script src="js/demos/03-line-styles.js"></script>
+  <script src="js/demos/04-text.js"></script>
+  <script src="js/demos/05-transform.js"></script>
+  <script src="js/demos/06-composite.js"></script>
+  <script src="js/demos/07-shadow-clip.js"></script>
+  <script src="js/demos/08-path2d.js"></script>
+  <script src="js/demos/09-images.js"></script>
+  <script src="js/demos/10-pixels.js"></script>
+  <script src="js/demos/11-offscreen.js"></script>
+  <script src="js/demos/12-draw-app.js"></script>
+  <script src="js/demos/13-animation-clock.js"></script>
+  <script src="js/demos/14-particles.js"></script>
+  <script src="js/demos/15-bouncing-balls.js"></script>
+  <script src="js/demos/16-export.js"></script>
+
+  <!-- 모든 데모 스크립트가 등록을 마친 뒤 앱을 부팅합니다 -->
+  <script>App.boot();</script>
+</body>
+</html>

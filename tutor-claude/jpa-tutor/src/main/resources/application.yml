@@ -1,0 +1,41 @@
+spring:
+  datasource:
+    # p6spy가 실제 커넥션을 감싸서(driver-class-name을 p6spy로 지정) SQL을 가로채 로깅한다.
+    driver-class-name: com.p6spy.engine.spy.P6SpyDriver
+    url: jdbc:p6spy:h2:mem:jpatutor;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    hibernate:
+      # create: 애플리케이션 시작 시 테이블을 지웠다가 다시 생성 (학습용으로는 매번 깨끗한 스키마가 편하다)
+      # 실무에서는 절대 create/create-drop을 운영 DB에 쓰지 않는다 (validate 또는 Flyway/Liquibase 사용)
+      ddl-auto: create
+    properties:
+      hibernate:
+        # 하이버네이트가 만드는 SQL을 보기 좋게 줄바꿈/들여쓰기 해준다.
+        format_sql: true
+        # N+1 문제 회피용 기본 batch size (12장에서 자세히 다룬다)
+        default_batch_fetch_size: 100
+        # SQL 실행 횟수를 정확히 세서 테스트로 검증할 수 있게 해준다 (8장 쓰기 지연, 12장 N+1 테스트에서 활용).
+        generate_statistics: true
+    open-in-view: false # OSIV를 꺼서 실무와 동일한 환경으로 학습한다 (15장에서 이유를 설명)
+
+logging:
+  level:
+    # 하이버네이트가 생성한 SQL 자체는 p6spy 로그로 충분히 보이므로 끈다 (중복 로그 방지)
+    org.hibernate.SQL: off
+    org.hibernate.orm.jdbc.bind: off
+    org.hibernate.stat: warn # generate_statistics의 INFO 로그가 너무 많아서 warn 이상만 남긴다
+    com.jpatutor: debug
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
+      multiline: true
