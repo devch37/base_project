@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: postgres-tutorial
+
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/tutorial}
+    username: ${DB_USERNAME:tutorial}
+    password: ${DB_PASSWORD:tutorial}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      pool-name: postgres-tutorial-pool
+      maximum-pool-size: ${DB_POOL_MAX_SIZE:10}
+      minimum-idle: ${DB_POOL_MIN_IDLE:2}
+      connection-timeout: ${DB_CONNECTION_TIMEOUT_MS:30000}
+      idle-timeout: ${DB_IDLE_TIMEOUT_MS:600000}
+      max-lifetime: ${DB_MAX_LIFETIME_MS:1800000}
+
+  sql:
+    init:
+      mode: never
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    com.zaxxer.hikari: INFO
+    org.springframework.jdbc.core: DEBUG
