@@ -4,8 +4,8 @@ spring:
 
   datasource:
     url: ${DB_URL:jdbc:postgresql://localhost:5432/tutorial}
-    username: ${DB_USERNAME:tutorial}
-    password: ${DB_PASSWORD:tutorial}
+    username: ${DB_USERNAME:tst}
+    password: ${DB_PASSWORD:1234}
     driver-class-name: org.postgresql.Driver
     hikari:
       pool-name: postgres-tutorial-pool

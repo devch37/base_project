@@ -1,0 +1,51 @@
+tutorial:
+  sso:
+    # 이 파일은 sso 프로필에서만 읽히므로 SSO 보안 설정을 활성화합니다.
+    enabled: true
+    # IdP가 역할을 넣어 주는 claim 경로입니다. 중첩 경로도 점(.)으로 지정할 수 있습니다.
+    roles-claim: ${SSO_ROLES_CLAIM:roles}
+    # 아래 역할을 가진 사용자만 /api/admin/**와 민감한 Actuator API에 접근합니다.
+    admin-role: ${SSO_ADMIN_ROLE:ADMIN}
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          # corporate는 이 애플리케이션 안에서 사용하는 registrationId입니다.
+          # 로그인 시작 URL과 callback URL의 마지막 경로에도 이 이름이 사용됩니다.
+          corporate:
+            provider: corporate
+            client-name: Corporate SSO
+            # IdP 관리 화면에서 Web/Confidential Client를 등록한 뒤 발급받는 값입니다.
+            client-id: ${SSO_CLIENT_ID}
+            client-secret: ${SSO_CLIENT_SECRET}
+            authorization-grant-type: authorization_code
+            # IdP에 등록할 callback: http://localhost:8080/login/oauth2/code/corporate
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            # openid가 포함되어야 OAuth2 로그인이 OIDC 인증으로 동작합니다.
+            scope: ${SSO_SCOPES:openid,profile,email}
+        provider:
+          corporate:
+            # Spring이 .well-known/openid-configuration과 JWKS를 찾는 기준 주소입니다.
+            issuer-uri: ${SSO_ISSUER_URI}
+
+server:
+  # 운영 reverse proxy 뒤에서 원래 HTTPS 호스트를 기준으로 callback URL을 만들기 위한 설정입니다.
+  forward-headers-strategy: framework
+  servlet:
+    session:
+      timeout: ${SSO_SESSION_TIMEOUT:30m}
+      cookie:
+        # JavaScript가 세션 쿠키를 읽지 못하게 합니다.
+        http-only: true
+        # 로컬 HTTP에서는 false, 운영 HTTPS에서는 반드시 true로 설정합니다.
+        secure: ${SESSION_COOKIE_SECURE:false}
+        # 일반적인 top-level OIDC redirect가 동작하면서 CSRF 위험을 줄이는 값입니다.
+        same-site: lax
+
+management:
+  endpoint:
+    health:
+      # 공개 health endpoint에서 DB 주소 같은 상세 운영 정보를 노출하지 않습니다.
+      show-details: never

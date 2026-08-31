@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OIDC SSO Tutorial</title>
+    <style>
+        body { max-width: 760px; margin: 48px auto; padding: 0 20px; font: 16px/1.6 system-ui, sans-serif; }
+        button, a { margin: 4px; padding: 8px 12px; }
+        pre { padding: 16px; overflow: auto; background: #f4f4f5; border-radius: 8px; }
+    </style>
+</head>
+<body>
+<h1>사내 어드민 OIDC SSO 튜토리얼</h1>
+<p>SSO 프로필로 실행한 뒤 아래 버튼으로 인증과 권한 매핑을 확인하세요.</p>
+<p>
+    <a href="/oauth2/authorization/corporate">Corporate SSO 로그인</a>
+    <button type="button" onclick="callApi('/api/me')">내 정보</button>
+    <button type="button" onclick="callApi('/api/admin/dashboard')">관리자 API</button>
+    <button type="button" onclick="logout()">로그아웃</button>
+</p>
+<pre id="result">결과가 여기에 표시됩니다.</pre>
+<script>
+    const result = document.getElementById('result');
+
+    async function callApi(path) {
+        const response = await fetch(path);
+        const body = await response.text();
+        result.textContent = `${response.status} ${response.statusText}\n${body}`;
+    }
+
+    async function logout() {
+        const response = await fetch('/api/csrf');
+        if (!response.ok) {
+            result.textContent = '먼저 로그인해야 합니다.';
+            return;
+        }
+        const csrf = await response.json();
+        const form = document.createElement('form');
+        form.method = 'post';
+        form.action = '/logout';
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = csrf.parameterName;
+        input.value = csrf.token;
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
+</script>
+</body>
+</html>
