@@ -1,0 +1,50 @@
+{
+  // ============================================================================
+  // tsconfig.json - TypeScript 컴파일러 설정 파일
+  // ----------------------------------------------------------------------------
+  // 이 파일이 있는 디렉터리가 "TypeScript 프로젝트의 루트"가 됩니다.
+  // `tsc` 명령을 인자 없이 실행하면 이 설정을 읽어서 동작합니다.
+  // 실무에서 가장 중요한 옵션은 `strict` 계열입니다. (아래 주석 참고)
+  // ============================================================================
+  "compilerOptions": {
+    // --- 출력 대상 / 모듈 시스템 ---------------------------------------------
+    "target": "ES2022",            // 컴파일 결과가 사용할 JS 문법 버전
+    "module": "NodeNext",          // Node.js의 최신 ESM/CJS 해석 방식 사용
+    "moduleResolution": "NodeNext",// import 경로를 Node 방식으로 해석
+    "lib": ["ES2022"],             // 사용할 내장 타입 정의 (DOM 없이 순수 JS)
+
+    // --- 출력 위치 ----------------------------------------------------------
+    "outDir": "dist",              // 컴파일된 .js 파일이 저장될 폴더
+    "rootDir": "src",              // 소스 루트 (dist 구조를 src와 동일하게 유지)
+    "sourceMap": true,             // 디버깅용 소스맵 생성
+
+    // --- 타입 안정성 (실무에서 반드시 켜세요) -------------------------------
+    "strict": true,                // 아래 strict 관련 옵션을 한 번에 모두 켬
+    //   - noImplicitAny: 타입을 추론 못하면 에러 (암묵적 any 금지)
+    //   - strictNullChecks: null/undefined를 별도 타입으로 엄격히 구분
+    //   - strictFunctionTypes: 함수 매개변수 타입을 반공변적으로 검사
+    //   - strictPropertyInitialization: 클래스 필드 초기화 강제
+    "noUncheckedIndexedAccess": true, // arr[i] 결과에 `| undefined` 를 붙여 줌
+    "noImplicitOverride": true,       // 부모 메서드 재정의 시 override 키워드 강제
+    "noFallthroughCasesInSwitch": true, // switch문 break 누락 방지
+
+    // --- 미사용 코드 경고 --------------------------------------------------
+    "noUnusedLocals": false,       // 학습용이라 꺼둠 (실무에선 true 권장)
+    "noUnusedParameters": false,
+
+    // --- 상호 운용성 ------------------------------------------------------
+    "esModuleInterop": true,       // CommonJS 모듈을 default import 가능하게
+    "forceConsistentCasingInFileNames": true, // 파일명 대소문자 일관성 강제
+    "skipLibCheck": true,          // node_modules의 .d.ts 검사 생략 (빌드 속도)
+    "resolveJsonModule": true,     // .json 파일 import 허용
+
+    // --- 데코레이터 (3-advanced/15-decorators.ts 에서 사용) ----------------
+    // TypeScript 5.x는 TC39 "표준 데코레이터"를 플래그 없이 지원합니다.
+    // 하지만 NestJS/Angular/TypeORM 같은 실무 프레임워크는 아직 "레거시(실험적)
+    // 데코레이터"를 사용하므로, 이 학습 프로젝트도 실무에 맞춰 아래 옵션을 켭니다.
+    "experimentalDecorators": true,   // @Controller, @Injectable 스타일
+    "emitDecoratorMetadata": true,    // 런타임에 타입 메타데이터 방출 (DI 컨테이너용)
+  },
+  "include": ["src/**/*", "exercises/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

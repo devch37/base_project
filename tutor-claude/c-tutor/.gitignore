@@ -1,0 +1,24 @@
+# 빌드 산출물
+bin/
+*.o
+*.d
+*.a
+*.so
+*.dylib
+a.out
+*.dSYM/
+
+# 캡스톤 빌드
+capstone/build/
+capstone/bin/
+capstone/*.db
+
+# 18장 예제 프로젝트 산출물
+examples/18/proj/app
+examples/18/proj/build/
+
+# 에디터/OS
+.DS_Store
+*.swp
+compile_commands.json
+.cache/

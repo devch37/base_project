@@ -1,0 +1,24 @@
+{
+  "name": "typescript-tutor",
+  "version": "1.0.0",
+  "description": "TypeScript를 basic부터 advanced까지 단계별로 학습하는 교육용 프로젝트",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "lesson": "tsx",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "basic": "tsx src/1-basic/01-types.ts && tsx src/1-basic/02-functions.ts && tsx src/1-basic/03-objects-and-interfaces.ts && tsx src/1-basic/04-union-and-narrowing.ts && tsx src/1-basic/05-arrays-tuples-enums.ts",
+    "intermediate": "tsx src/2-intermediate/06-type-vs-interface.ts && tsx src/2-intermediate/07-classes.ts && tsx src/2-intermediate/08-generics.ts && tsx src/2-intermediate/09-modules.ts && tsx src/2-intermediate/10-type-guards.ts",
+    "advanced": "tsx src/3-advanced/11-utility-types.ts && tsx src/3-advanced/12-conditional-types.ts && tsx src/3-advanced/13-mapped-types.ts && tsx src/3-advanced/14-template-literal-types.ts && tsx src/3-advanced/15-decorators.ts",
+    "practical": "tsx src/4-practical/16-api-response-design.ts && tsx src/4-practical/17-result-error-handling.ts && tsx src/4-practical/18-runtime-validation.ts && tsx src/4-practical/19-mini-project.ts"
+  },
+  "keywords": ["typescript", "tutorial", "study", "korean"],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.9.3"
+  }
+}

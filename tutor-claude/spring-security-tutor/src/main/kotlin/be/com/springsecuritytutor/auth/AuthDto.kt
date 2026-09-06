@@ -41,3 +41,8 @@ data class TokenResponse(
     val refreshTokenExpiresAt: Instant,
     val tokenType: String = "Bearer"
 )
+
+fun main() {
+    val test = '한'
+    println(test.code)
+}

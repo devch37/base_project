@@ -1,0 +1,5 @@
+{
+  // 빌드(nest build) 전용 설정 — 테스트/스펙 파일을 결과물에서 제외
+  "extends": "./tsconfig.json",
+  "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
+}

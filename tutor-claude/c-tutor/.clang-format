@@ -1,0 +1,15 @@
+# 21장에서 설명합니다. LLVM/Linux 커널이 아닌, 오픈소스에서 흔한 중도 스타일.
+# 적용:  clang-format -i examples/**/*.c
+BasedOnStyle: LLVM
+IndentWidth: 4
+TabWidth: 4
+UseTab: Never
+ColumnLimit: 100
+PointerAlignment: Right          # int *p  (Right)  vs  int* p (Left)
+AlignConsecutiveMacros: true
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: false
+AllowShortLoopsOnASingleLine: false
+BreakBeforeBraces: Attach        # 여는 중괄호를 같은 줄에
+SpaceBeforeParens: ControlStatements
+IncludeBlocks: Regroup

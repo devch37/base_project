@@ -1,0 +1,47 @@
+{
+  // ============================================================================
+  // tsconfig.json — NestJS 프로젝트 컴파일 설정
+  // ----------------------------------------------------------------------------
+  // NestJS는 데코레이터(@Controller, @Injectable ...)를 핵심으로 쓰므로
+  // experimentalDecorators / emitDecoratorMetadata 가 반드시 켜져 있어야 합니다.
+  // ============================================================================
+  "compilerOptions": {
+    "module": "commonjs",              // Nest는 CommonJS 기반으로 동작
+    "declaration": true,               // .d.ts 생성 (라이브러리화 대비)
+    "removeComments": true,
+    "emitDecoratorMetadata": true,     // 런타임에 타입 메타데이터 방출 → DI가 타입으로 주입
+    "experimentalDecorators": true,    // 레거시 데코레이터 문법 사용
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,           // CommonJS 모듈을 `import x from 'x'` 로 가져오기
+    "target": "ES2023",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "strictBindCallApply": true,
+    "noFallthroughCasesInSwitch": true,
+
+    // strict 계열을 개별로 켜는 대신 아래 한 줄이면 전부 켜짐(권장)
+    "strict": true,
+
+    // strictPropertyInitialization 만 예외로 끕니다.
+    // 이유: 엔티티/DTO 필드는 TypeORM·class-validator·DI 가 런타임에 채워 주므로
+    //       "생성자에서 초기화하라"는 규칙이 오히려 방해가 됩니다.
+    //       (NestJS 공식 스타터도 이 옵션을 끕니다)
+    "strictPropertyInitialization": false,
+
+    // 실무 팁: 아래 두 개는 초반 학습에는 방해가 될 수 있어 false.
+    // 익숙해지면 true 로 바꿔 "안 쓰는 변수/import"를 강제로 정리하세요.
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+
+    // src/ 를 절대경로처럼 쓰기: import { X } from 'src/common/...'
+    "paths": {
+      "src/*": ["src/*"]
+    }
+  }
+}
