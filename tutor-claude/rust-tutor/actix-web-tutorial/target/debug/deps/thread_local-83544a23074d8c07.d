@@ -1,0 +1,9 @@
+/Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/target/debug/deps/thread_local-83544a23074d8c07.d: /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.10/src/lib.rs /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.10/src/cached.rs /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.10/src/thread_id.rs
+
+/Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/target/debug/deps/libthread_local-83544a23074d8c07.rlib: /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.10/src/lib.rs /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.10/src/cached.rs /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.10/src/thread_id.rs
+
+/Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/target/debug/deps/libthread_local-83544a23074d8c07.rmeta: /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.10/src/lib.rs /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.10/src/cached.rs /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.10/src/thread_id.rs
+
+/Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.10/src/lib.rs:
+/Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.10/src/cached.rs:
+/Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/thread_local-1.1.10/src/thread_id.rs:

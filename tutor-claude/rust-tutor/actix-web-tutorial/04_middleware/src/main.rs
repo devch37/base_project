@@ -16,6 +16,7 @@
 //
 // =============================================================================
 
+use actix_web::dev::Service;
 use actix_web::{
     get,
     middleware::Logger,

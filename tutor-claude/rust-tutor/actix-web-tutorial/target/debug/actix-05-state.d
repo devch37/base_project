@@ -1,0 +1,1 @@
+/Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/target/debug/actix-05-state: /Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/05_state/src/main.rs

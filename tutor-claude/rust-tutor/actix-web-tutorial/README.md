@@ -3,6 +3,10 @@
 Rust 초보자를 위한 Actix Web 웹 프레임워크 학습 프로젝트입니다.
 각 챕터는 독립적인 Cargo 크레이트로 구성되어 있어, 단계별로 학습할 수 있습니다.
 
+> 📘 **Rust 문법이 낯설다면 먼저 [`../rust-basics`](../rust-basics/README.md)를 보세요.**
+> Java 개발자 관점에서 Rust 기초 문법(소유권, 빌림, trait, async 등)을 13개 챕터로 정리했고,
+> [`ACTIX_DECODER.md`](../rust-basics/ACTIX_DECODER.md)에서 이 튜토리얼 코드를 한 줄씩 해설합니다.
+
 ## 학습 순서
 
 | 챕터 | 주제 | 핵심 개념 |

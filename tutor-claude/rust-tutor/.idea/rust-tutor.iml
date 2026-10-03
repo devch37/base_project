@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="EMPTY_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/actix-web-tutorial/01_basic/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/actix-web-tutorial/02_routing/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/actix-web-tutorial/03_request_response/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/actix-web-tutorial/04_middleware/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/actix-web-tutorial/05_state/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/actix-web-tutorial/06_database/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/actix-web-tutorial/07_error_handling/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/actix-web-tutorial/08_advanced/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/actix-web-tutorial/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

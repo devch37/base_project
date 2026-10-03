@@ -22,7 +22,6 @@ use actix_web::{
     App, HttpResponse, HttpServer, Responder, ResponseError,
 };
 use serde::{Deserialize, Serialize};
-use std::fmt;
 use thiserror::Error;
 
 // =============================================================================
@@ -237,8 +236,15 @@ async fn admin_only(req: actix_web::HttpRequest) -> Result<impl Responder, AppEr
 }
 
 // 내부 서버 에러 시뮬레이션
+//
+// ⚠️ 반환 타입이 Result<impl Responder, AppError> 가 아닌 이유:
+//   impl Responder 는 "컴파일러가 함수 본문을 보고 실제 타입을 알아내는" 문법입니다.
+//   그런데 이 함수는 Err(...) 만 반환하고 Ok(...) 는 한 번도 반환하지 않기 때문에,
+//   성공 타입이 무엇인지 알아낼 단서가 없습니다.
+//   → error[E0283]: type annotations needed (cannot infer type ... `_: Responder`)
+//   그래서 성공 타입을 HttpResponse 로 직접 적어 줍니다. (rust-basics ch08 §3 참고)
 #[get("/crash")]
-async fn simulate_crash() -> Result<impl Responder, AppError> {
+async fn simulate_crash() -> Result<HttpResponse, AppError> {
     // 의도적으로 에러를 발생시킵니다
     Err(AppError::InternalError(
         "데이터베이스 연결이 끊어졌습니다".to_string()

@@ -1,0 +1,11 @@
+/Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/target/debug/deps/libsqlite3_sys-a125309f770b1395.d: /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/libsqlite3-sys-0.30.1/src/lib.rs /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/libsqlite3-sys-0.30.1/src/error.rs /Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/target/debug/build/libsqlite3-sys-075bbeac14aba8c5/out/bindgen.rs
+
+/Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/target/debug/deps/liblibsqlite3_sys-a125309f770b1395.rlib: /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/libsqlite3-sys-0.30.1/src/lib.rs /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/libsqlite3-sys-0.30.1/src/error.rs /Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/target/debug/build/libsqlite3-sys-075bbeac14aba8c5/out/bindgen.rs
+
+/Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/target/debug/deps/liblibsqlite3_sys-a125309f770b1395.rmeta: /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/libsqlite3-sys-0.30.1/src/lib.rs /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/libsqlite3-sys-0.30.1/src/error.rs /Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/target/debug/build/libsqlite3-sys-075bbeac14aba8c5/out/bindgen.rs
+
+/Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/libsqlite3-sys-0.30.1/src/lib.rs:
+/Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/libsqlite3-sys-0.30.1/src/error.rs:
+/Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/target/debug/build/libsqlite3-sys-075bbeac14aba8c5/out/bindgen.rs:
+
+# env-dep:OUT_DIR=/Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/target/debug/build/libsqlite3-sys-075bbeac14aba8c5/out

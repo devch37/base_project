@@ -1,0 +1,9 @@
+/Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/target/debug/deps/crc_catalog-a9e50858427aead8.d: /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/crc-catalog-2.5.0/src/lib.rs /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/crc-catalog-2.5.0/src/poly.rs /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/crc-catalog-2.5.0/src/algorithm.rs
+
+/Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/target/debug/deps/libcrc_catalog-a9e50858427aead8.rlib: /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/crc-catalog-2.5.0/src/lib.rs /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/crc-catalog-2.5.0/src/poly.rs /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/crc-catalog-2.5.0/src/algorithm.rs
+
+/Users/chulhanlee/Desktop/workspace/study/base_project/tutor-claude/rust-tutor/actix-web-tutorial/target/debug/deps/libcrc_catalog-a9e50858427aead8.rmeta: /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/crc-catalog-2.5.0/src/lib.rs /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/crc-catalog-2.5.0/src/poly.rs /Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/crc-catalog-2.5.0/src/algorithm.rs
+
+/Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/crc-catalog-2.5.0/src/lib.rs:
+/Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/crc-catalog-2.5.0/src/poly.rs:
+/Users/chulhanlee/.asdf/installs/rust/1.93.0/registry/src/index.crates.io-1949cf8c6b5b557f/crc-catalog-2.5.0/src/algorithm.rs:
