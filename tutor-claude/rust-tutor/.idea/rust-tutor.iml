@@ -10,7 +10,9 @@
       <sourceFolder url="file://$MODULE_DIR$/actix-web-tutorial/06_database/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/actix-web-tutorial/07_error_handling/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/actix-web-tutorial/08_advanced/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/rust-basics/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/actix-web-tutorial/target" />
+      <excludeFolder url="file://$MODULE_DIR$/rust-basics/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -72,6 +72,10 @@ type Keys = keyof UserT;                    // 'id' | 'name'
 const admin1: AdminI = { id: 1, name: 'a', role: 'admin' };
 const admin2: AdminT = { id: 2, name: 'b', role: 'superadmin' };
 
+interface UserC {
+  id: string
+}
+
 function toLabel(u: UserI | UserT): string {
   return `#${u.id} ${u.name}`;
 }

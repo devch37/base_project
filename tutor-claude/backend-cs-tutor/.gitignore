@@ -1,0 +1,28 @@
+# 랩 빌드 산출물
+labs/sample-app/target/
+labs/sample-app/build/
+labs/sample-app/.gradle/
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+
+# 랩 실행 중 생성물
+labs/**/*.log
+labs/**/dump.rdb
+labs/**/*.hprof
+labs/**/*.jfr
+*.heapdump
+hs_err_pid*.log
+
+# docker 볼륨 export 등
+labs/**/data/
+
+# 개인 노트 중 비공개로 두고 싶은 것 (원하면 주석 해제)
+# notes/private/
+
+# OS/에디터
+.DS_Store
+*.swp
+.idea/
+.vscode/
+*.iml

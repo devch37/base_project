@@ -108,7 +108,7 @@ interface Logger {
 }
 
 class ConsoleLogger implements Logger {
-  log(message: string): void {
+ log(message: string): void {
     console.log(`[Console] ${message}`);
   }
 }

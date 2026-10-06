@@ -1,0 +1,15 @@
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { launch, newContext, serveStatic } from './helpers';
+const here = dirname(fileURLToPath(import.meta.url));
+const dir = process.argv[2]!;
+const out = process.argv[3]!;
+const query = process.argv[4] ?? '';
+const srv = await serveStatic(resolve(here, '..', dir, 'public'));
+const b = await launch();
+const p = await (await newContext(b)).newPage();
+await p.setViewportSize({ width: 1100, height: 1500 });
+await p.goto(`${srv.url}/${query}`);
+await p.waitForTimeout(Number(process.env.WAIT ?? 3500));
+await p.screenshot({ path: out, fullPage: true });
+await b.close(); await srv.close();

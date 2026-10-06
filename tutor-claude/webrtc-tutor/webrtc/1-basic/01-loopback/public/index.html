@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WebRTC 1장 — Loopback (한 페이지 안의 두 피어)</title>
+</head>
+<body>
+  <header>
+    <h1>01. Loopback — 한 페이지 안에서 두 RTCPeerConnection 연결하기</h1>
+    <small>서버 없이 offer/answer/ICE 의 흐름을 단계별로 관찰합니다. 설명은 README.md 참고.</small>
+  </header>
+  <main>
+    <div class="row">
+      <button id="btnNext">다음 단계 ▶</button>
+      <button id="btnAuto" class="secondary">한 번에 실행 ⏩</button>
+      <button id="btnReset" class="secondary">초기화</button>
+      <span class="muted" id="stepHint">1단계부터 시작하세요</span>
+    </div>
+
+    <div class="grid">
+      <div class="card"><h2>pc1 (발신자 · Alice)</h2>
+        <div class="row"><span class="muted">signaling</span> <span id="p1-sig" class="badge">-</span>
+        <span class="muted">ICE 수집</span> <span id="p1-gather" class="badge">-</span></div>
+        <div class="row"><span class="muted">ICE 연결</span> <span id="p1-ice" class="badge">-</span>
+        <span class="muted">연결</span> <span id="p1-conn" class="badge">-</span></div>
+        <video id="v-local" muted></video><div class="muted">Alice 가 보내는 영상 (가짜 캔버스)</div>
+      </div>
+      <div class="card"><h2>pc2 (수신자 · Bob)</h2>
+        <div class="row"><span class="muted">signaling</span> <span id="p2-sig" class="badge">-</span>
+        <span class="muted">ICE 수집</span> <span id="p2-gather" class="badge">-</span></div>
+        <div class="row"><span class="muted">ICE 연결</span> <span id="p2-ice" class="badge">-</span>
+        <span class="muted">연결</span> <span id="p2-conn" class="badge">-</span></div>
+        <video id="v-remote" muted></video><div class="muted">Bob 이 받은 영상 (네트워크 스택을 통과)</div>
+      </div>
+    </div>
+
+    <div class="card"><h2>단계</h2><ol id="steps" style="margin:0;padding-left:18px"></ol></div>
+
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="card"><h2>Offer SDP 요약 (Alice → Bob)</h2><pre id="offer-sum" class="muted">(아직 없음)</pre>
+        <details><summary class="muted">원문 SDP 보기</summary><pre id="offer-raw"></pre></details></div>
+      <div class="card"><h2>Answer SDP 요약 (Bob → Alice)</h2><pre id="answer-sum" class="muted">(아직 없음)</pre>
+        <details><summary class="muted">원문 SDP 보기</summary><pre id="answer-raw"></pre></details></div>
+    </div>
+
+    <div class="grid" style="grid-template-columns:1fr 1fr">
+      <div class="card"><h2>ICE 후보 (trickle)</h2><pre id="cands" class="muted">(아직 없음)</pre></div>
+      <div class="card"><h2>실시간 통계 (Bob 이 받은 영상 / 선택된 경로)</h2><pre id="stats" class="muted">(연결 후 표시)</pre></div>
+    </div>
+
+    <div class="card"><h2>로그</h2><div id="log"></div></div>
+  </main>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "name": "@tutor/ws-kit",
+  "version": "1.0.0",
+  "description": "WebSocket 학습용 + 실무형 미니 라이브러리 (rooms, presence, heartbeat, backpressure, Redis scale-out)",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./protocol": "./src/protocol.ts",
+    "./reliable": "./src/reliable.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "tsx --test --test-timeout=30000 test/*.test.ts exercises/solutions/*.test.ts"
+  },
+  "dependencies": {
+    "ioredis": "^5.4.1",
+    "ws": "^8.18.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/ws": "^8.5.13"
+  }
+}

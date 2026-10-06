@@ -1,0 +1,46 @@
+{
+  "name": "webrtc-tutor",
+  "version": "1.0.0",
+  "description": "WebSocket과 WebRTC를 basic부터 advanced(분산 환경)까지 배우는 실무형 튜토리얼",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "websocket",
+    "webrtc"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "typecheck": "npm run typecheck -w @tutor/ws-kit && npm run typecheck -w @tutor/webrtc",
+    "test": "npm run test -w @tutor/ws-kit && npm run test -w @tutor/webrtc",
+    "ws:01": "tsx websocket/1-basic/01-handshake-echo/demo.ts",
+    "ws:02": "tsx websocket/1-basic/02-message-protocol/demo.ts",
+    "ws:03": "tsx websocket/1-basic/03-rooms-broadcast/demo.ts",
+    "ws:04": "tsx websocket/2-intermediate/04-heartbeat-reconnect/demo.ts",
+    "ws:05": "tsx websocket/2-intermediate/05-auth-security/demo.ts",
+    "ws:06": "tsx websocket/2-intermediate/06-backpressure-ratelimit/demo.ts",
+    "ws:07": "tsx websocket/3-advanced/07-reliable-delivery/demo.ts",
+    "ws:08": "tsx websocket/3-advanced/08-scale-out-redis/demo.ts",
+    "ws:09": "tsx websocket/3-advanced/09-production/demo.ts",
+    "ws:09:load": "tsx websocket/3-advanced/09-production/loadtest.ts",
+    "rtc:01": "tsx webrtc/tools/serve-chapter.ts webrtc/1-basic/01-loopback",
+    "rtc:02": "tsx webrtc/1-basic/02-signaling-1to1/server.ts",
+    "rtc:03": "tsx webrtc/tools/serve-chapter.ts webrtc/1-basic/03-datachannel",
+    "rtc:04": "tsx webrtc/tools/serve-chapter.ts webrtc/2-intermediate/04-media",
+    "rtc:05": "tsx webrtc/2-intermediate/05-nat-stun-turn/server.ts",
+    "rtc:06": "tsx webrtc/tools/serve-chapter.ts webrtc/2-intermediate/06-stats-quality",
+    "rtc:07": "tsx webrtc/3-advanced/07-mesh-room/server.ts",
+    "rtc:08": "tsx webrtc/3-advanced/08-sfu-mediasoup/server.ts",
+    "rtc:09": "tsx webrtc/3-advanced/09-distributed/demo.ts",
+    "rtc:10": "tsx webrtc/4-practical/10-meet-app/main.ts",
+    "e2e": "npm run e2e -w @tutor/webrtc"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.9.3"
+  },
+  "keywords": ["websocket", "webrtc", "tutorial", "korean", "sfu", "signaling"],
+  "license": "MIT"
+}
