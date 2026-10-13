@@ -1,0 +1,18 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  autoconfigure:
+    # Hazelcast 는 3단계 설정(app.hazelcast.enabled=true)일 때만 우리가 직접 띄운다
+    exclude: org.springframework.boot.autoconfigure.hazelcast.HazelcastAutoConfiguration
+
+app:
+  hazelcast:
+    # false: 서버 1대 (메모리 안에서만)   true: 서버 여러 대를 Hazelcast 로 묶음 (3단계)
+    enabled: ${HAZELCAST:false}
+    members: 127.0.0.1:5701,127.0.0.1:5702,127.0.0.1:5703
+
+logging:
+  level:
+    tutor.stomp: INFO
+    com.hazelcast: WARN

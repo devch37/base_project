@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>stomp-tutor</title><link rel="stylesheet" href="/style.css" /></head>
+<body>
+  <header><h1>stomp-tutor</h1><span id="info" class="badge">-</span></header>
+  <main style="grid-template-columns:1fr">
+    <section class="panel">
+      <h2>순서대로 해 보기</h2>
+      <ol>
+        <li><a href="/raw.html">1단계: 순수 WebSocket</a> — 탭 두 개로 열어서 대화. 개발자도구 Network → WS 탭 보기</li>
+        <li><a href="/chat.html">2단계: STOMP 방 채팅</a> — 방 이름이 같은 탭끼리만 대화. 프레임 로그 보기</li>
+        <li>3단계: 서버 2대 + Hazelcast — README 의 실행 방법대로 8081, 8082 를 띄우고
+          <a href="http://localhost:8081/chat.html">8081 채팅</a> / <a href="http://localhost:8082/chat.html">8082 채팅</a></li>
+      </ol>
+    </section>
+  </main>
+  <script>
+    fetch('/api/info').then((r) => r.json()).then((i) =>
+      (document.getElementById('info').textContent = `서버 ${i.port} · Hazelcast ${i.hazelcast ? `켜짐(멤버 ${i.clusterMembers})` : '꺼짐'}`));
+  </script>
+</body>
+</html>

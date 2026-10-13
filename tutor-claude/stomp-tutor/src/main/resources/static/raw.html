@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><title>1단계 · 순수 WebSocket</title><link rel="stylesheet" href="/style.css" /></head>
+<body>
+  <header><h1>1단계 · 순수 WebSocket</h1><span id="state" class="badge">CLOSED</span><a href="/">처음으로</a></header>
+  <main>
+    <section class="panel">
+      <div class="row">
+        <button id="connect" class="primary">연결</button>
+        <button id="close">닫기</button>
+      </div>
+      <div class="row"><input id="text" placeholder="메시지" style="flex:1" /><button id="send">보내기</button></div>
+      <p class="hint">
+        이 페이지는 <b>브라우저 기본 WebSocket API</b>만 쓴다.<br />
+        · 탭을 두 개 열어 대화해 보자. 서버는 받은 문자열을 접속자 <b>전원</b>에게 그대로 보낸다.<br />
+        · "방"이 없다. 만들려면 메시지 형식("join"…)과 방 목록 관리를 우리가 직접 발명해야 한다 → 그래서 2단계 STOMP.
+      </p>
+    </section>
+    <section class="panel"><h2>로그</h2><div id="log" class="log"></div></section>
+  </main>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const log = (cls, text) => {
+      const d = document.createElement('div');
+      d.className = cls;
+      d.textContent = `${new Date().toLocaleTimeString()} ${text}`;
+      $('log').appendChild(d);
+      $('log').scrollTop = 1e9;
+    };
+    let ws = null;
+    setInterval(() => ($('state').textContent = ws ? ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED'][ws.readyState] : 'CLOSED'), 200);
+
+    $('connect').onclick = () => {
+      ws?.close();
+      ws = new WebSocket(`ws://${location.host}/ws-raw`); // HTTP GET + "Upgrade: websocket" → 101
+      ws.onopen = () => log('sys', 'open — 101 Switching Protocols. 이제 이 연결로 양방향 대화');
+      ws.onmessage = (e) => log('in', `◀ ${e.data}`);
+      ws.onclose = (e) => log('sys', `close code=${e.code} (1000 정상, 1006 비정상 끊김)`);
+    };
+    $('close').onclick = () => ws?.close(1000);
+    const send = () => {
+      if (ws?.readyState !== WebSocket.OPEN) return log('sys', '먼저 연결하세요');
+      ws.send($('text').value);
+      log('out', `▶ ${$('text').value}`);
+      $('text').value = '';
+    };
+    $('send').onclick = send;
+    $('text').onkeydown = (e) => e.key === 'Enter' && send();
+  </script>
+</body>
+</html>
