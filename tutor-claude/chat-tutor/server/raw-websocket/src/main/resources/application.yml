@@ -1,0 +1,11 @@
+server:
+  port: 8080
+chat:
+  # WebSocket 연결을 허용할 브라우저 Origin 패턴 (22장에서 자세히)
+  allowed-origins: http://localhost:*,http://127.0.0.1:*
+  # 서버가 ping 을 보내는 주기와, pong 이 이 시간 동안 없으면 죽은 연결로 보고 끊는 기준
+  ping-interval: 15s
+  idle-timeout: 45s
+logging:
+  level:
+    tutor.chat: DEBUG

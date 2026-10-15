@@ -1,0 +1,12 @@
+server:
+  port: 8080
+chat:
+  allowed-origins: http://localhost:*,http://127.0.0.1:*
+  # STOMP heartbeat (09장). [서버가 보내는 주기, 서버가 받기를 기대하는 주기] ms
+  heartbeat-ms: 10000
+  history-size: 50
+logging:
+  level:
+    tutor.chat: DEBUG
+    # 프레임 흐름을 보고 싶으면 아래 주석 해제 (CONNECT/SUBSCRIBE/SEND 가 로그에 찍힌다)
+    # org.springframework.messaging.simp: TRACE

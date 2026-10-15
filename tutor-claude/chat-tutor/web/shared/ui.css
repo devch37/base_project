@@ -1,0 +1,28 @@
+/* 실습 페이지 공통 스타일 — 꾸밈보다 "읽기 쉬움" 우선 */
+:root {
+  --bg: #f6f7f9; --panel: #ffffff; --text: #1d2330; --muted: #667085; --line: #e3e6eb;
+  --accent: #2f6fed; --ok: #12a150; --warn: #c27c00; --bad: #d92d20; --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif; background: var(--bg); color: var(--text); }
+header.top { padding: 12px 16px; background: var(--panel); border-bottom: 1px solid var(--line); display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+header.top h1 { font-size: 16px; margin: 0; }
+main { padding: 16px; display: grid; gap: 16px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px; min-width: 0; }
+.panel h2 { font-size: 14px; margin: 0 0 10px; }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+button { font: inherit; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--line); background: #fff; cursor: pointer; }
+button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+button.danger { color: var(--bad); }
+button:disabled { opacity: .5; cursor: not-allowed; }
+input, select, textarea { font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; min-width: 0; }
+.log { font: 12px/1.45 var(--mono); background: #0f1420; color: #d6deeb; border-radius: 8px; padding: 10px; height: 240px; overflow: auto; white-space: pre-wrap; word-break: break-all; }
+.log .in { color: #7fdbca; } .log .out { color: #f78c6c; } .log .sys { color: #82aaff; } .log .err { color: #ff5370; }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 12px; background: #eef2f6; color: var(--muted); }
+.badge.ok { background: #e7f6ec; color: var(--ok); } .badge.warn { background: #fff4e0; color: var(--warn); } .badge.bad { background: #fde8e7; color: var(--bad); }
+.muted { color: var(--muted); }
+code, .mono { font-family: var(--mono); font-size: 12px; }
+.grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 8px; }
+.stats div { background: #f3f5f8; border-radius: 6px; padding: 6px 8px; }
+.stats b { display: block; font-size: 16px; }

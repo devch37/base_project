@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>15~16 화면 복제 실험실</title>
+  <link rel="stylesheet" href="/shared/ui.css" />
+  <style>
+    iframe { width: 100%; height: 420px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
+  </style>
+</head>
+<body>
+  <header class="top"><h1>15~16 · 스냅샷 + MutationObserver 로 화면 복제</h1><span class="muted">서버 없이 한 페이지 안에서: 원본 → (직렬화·압축·조각·네트워크 흉내) → 복제본</span></header>
+  <main>
+    <section class="panel">
+      <div class="row">
+        <label>네트워크 지연 <input id="delay" type="number" value="80" style="width:60px" />ms</label>
+        <label>손실률 <input id="loss" type="number" value="0" style="width:50px" />%</label>
+        <label><input type="checkbox" id="shuffle" /> 순서 뒤섞기</label>
+        <label>메시지 최대 <input id="max" type="number" value="4096" style="width:70px" />B (작게 하면 조각난다)</label>
+        <label><input type="checkbox" id="maskall" /> 모든 입력값 마스킹</label>
+        <button id="restart" class="primary">새 스냅샷부터 다시</button>
+      </div>
+    </section>
+    <div class="grid2">
+      <section class="panel"><h2>원본 (고객)</h2><iframe id="src" src="./playground.html"></iframe></section>
+      <section class="panel"><h2>복제본 (상담사) — sandbox, 스크립트 없음</h2><iframe id="dst" sandbox="allow-same-origin"></iframe></section>
+    </div>
+    <section class="panel">
+      <div class="stats" id="stats"></div>
+      <div id="log" class="log" style="margin-top:8px"></div>
+    </section>
+  </main>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

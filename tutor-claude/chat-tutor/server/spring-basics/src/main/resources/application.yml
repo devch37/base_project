@@ -1,0 +1,19 @@
+# ─────────────────────────────────────────────────────────
+# 외부 설정(04장): 코드 수정 없이 값만 바꾸고 싶은 것들은 여기로.
+# 실행할 때 덮어쓰기:
+#   환경 변수    CHAT_TENANT=acme-bank ./gradlew :server:spring-basics:bootRun
+#   명령행 인자  java -jar app.jar --chat.tenant=acme-bank
+# (Spring 은 CHAT_TENANT → chat.tenant 로 자동 변환해 준다: relaxed binding)
+# ─────────────────────────────────────────────────────────
+server:
+  port: 8080
+
+chat:
+  # 어떤 고객사 정책 Bean 을 쓸지 고른다 (05장). default | acme-bank
+  tenant: default
+  crm:
+    # 06장: 우리 서버가 호출할 "고객사 CRM" 주소. 실습용 가짜 CRM 이 같은 앱 안에 있다.
+    base-url: http://localhost:8080/fake-crm
+    connect-timeout: 1s
+    read-timeout: 2s
+    max-attempts: 2

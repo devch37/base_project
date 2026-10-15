@@ -1,0 +1,22 @@
+server:
+  port: 8080
+chat:
+  allowed-origins: http://localhost:*,http://127.0.0.1:*
+  heartbeat-ms: 10000
+  jwt:
+    issuer: chat-tutor
+    # HS256 비밀키는 최소 32바이트(256비트). 실제 운영에서는 절대 파일에 적지 말고 환경 변수/비밀 저장소로:
+    #   CHAT_JWT_SECRET=$(openssl rand -base64 48) java -jar app.jar
+    secret: ${CHAT_JWT_SECRET:dev-only-secret-change-me-0123456789abcdef}
+    default-ttl: 15m
+    max-ttl: 2h
+    clock-skew: 30s
+  # 고객사(tenant)별 내부 API 키. 고객사 "백엔드 서버"만 알고 있어야 한다 (브라우저 X).
+  tenants:
+    acme-bank: ${ACME_API_KEY:dev-acme-key}
+    shop: ${SHOP_API_KEY:dev-shop-key}
+  # 만료된 토큰의 연결을 정리하는 주기
+  expiry-sweep-interval: 5s
+logging:
+  level:
+    tutor.chat: DEBUG

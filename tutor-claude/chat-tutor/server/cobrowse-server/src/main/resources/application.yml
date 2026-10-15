@@ -1,0 +1,57 @@
+# ─────────────────────────────────────────────────────────
+# cobrowse-server 설정. 모든 값은 환경 변수로 덮어쓸 수 있다 (04장, 21장).
+#   예) SERVER_PORT=8081 CHAT_CLUSTER_ENABLED=true java -jar cobrowse-server.jar
+# ─────────────────────────────────────────────────────────
+server:
+  port: ${SERVER_PORT:8080}
+  # SIGTERM 을 받으면 새 요청은 막고 진행 중인 요청은 마저 처리한 뒤 종료 (24장)
+  shutdown: graceful
+
+spring:
+  application:
+    name: cobrowse-server
+  autoconfigure:
+    # Hazelcast 는 우리가 직접(ClusterConfig) 조건부로 띄운다. 자동 설정이 멋대로 띄우지 않도록 끈다.
+    exclude: org.springframework.boot.autoconfigure.hazelcast.HazelcastAutoConfiguration
+  lifecycle:
+    timeout-per-shutdown-phase: 10s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+chat:
+  node-id: ${CHAT_NODE_ID:node-${server.port}}
+  allowed-origins: ${CHAT_ALLOWED_ORIGINS:http://localhost:*,http://127.0.0.1:*}
+  heartbeat-ms: 10000
+  expiry-sweep-interval: 5s
+  # 18장: 한 STOMP 메시지의 최대 크기. SDK 의 조각 크기(기본 32KB)보다 넉넉히 크게.
+  max-message-bytes: 131072
+  # 19장: 한 연결의 메시지 처리 순서를 보존할지. 끄면 화면 프레임 순서가 뒤바뀐다(OrderingTest).
+  preserve-order: true
+  jwt:
+    issuer: chat-tutor
+    secret: ${CHAT_JWT_SECRET:dev-only-secret-change-me-0123456789abcdef}
+    default-ttl: 15m
+    max-ttl: 2h
+    clock-skew: 30s
+  tenants:
+    acme-bank: ${ACME_API_KEY:dev-acme-key}
+    shop: ${SHOP_API_KEY:dev-shop-key}
+  presence:
+    # 23장: 공유 저장소의 presence 항목 수명. 서버가 죽어 갱신이 멈추면 이 시간 뒤 자동 삭제된다.
+    ttl: 30s
+    refresh-interval: 10s
+  cluster:
+    enabled: ${CHAT_CLUSTER_ENABLED:false}
+    name: chat-tutor
+    # Hazelcast 멤버끼리 통신하는 포트 (HTTP 포트와 별개!). 사용 중이면 +1 씩 올려 찾는다.
+    port: 5701
+    members: ${CHAT_CLUSTER_MEMBERS:127.0.0.1:5701,127.0.0.1:5702,127.0.0.1:5703}
+
+logging:
+  level:
+    tutor.chat: INFO
+    com.hazelcast: WARN

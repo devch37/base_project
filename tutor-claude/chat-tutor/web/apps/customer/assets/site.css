@@ -1,0 +1,14 @@
+/* 고객사 사이트 CSS — 상대 경로 url() 이 있다. SDK 가 절대 경로로 바꿔 보내야 상담사 화면에 보인다 (16장) */
+body.site { margin: 0; font-family: -apple-system, "Apple SD Gothic Neo", sans-serif; color: #1d2330; background: #fff url("pattern.svg"); }
+.site-header { padding: 14px 24px; border-bottom: 1px solid #e3e6eb; background: #fff; display: flex; align-items: center; gap: 16px; }
+.site-main { max-width: 760px; margin: 24px auto; padding: 0 16px 120px; }
+.card { background: #fff; border: 1px solid #e3e6eb; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+.field { display: grid; gap: 4px; margin-bottom: 12px; }
+.field label { font-size: 13px; color: #475467; }
+.field input, .field select, .field textarea { padding: 8px 10px; border: 1px solid #cfd4dc; border-radius: 8px; font: inherit; }
+.terms { height: 120px; overflow: auto; border: 1px solid #e3e6eb; border-radius: 8px; padding: 8px 12px; font-size: 13px; background: #fafbfc; }
+.plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.plan { border: 2px solid #e3e6eb; border-radius: 10px; padding: 12px; cursor: pointer; }
+.plan.selected { border-color: #2f6fed; background: #f0f5ff; }
+.btn { background: #2f6fed; color: #fff; border: 0; border-radius: 8px; padding: 10px 18px; font: inherit; cursor: pointer; }
+.toast { position: fixed; left: 50%; top: 16px; transform: translateX(-50%); background: #1d2330; color: #fff; padding: 8px 14px; border-radius: 8px; }

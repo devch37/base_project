@@ -1,0 +1,8 @@
+node_modules/
+dist/
+build/
+.gradle/
+*.log
+test-results/
+web/e2e/.artifacts/
+.idea/

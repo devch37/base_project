@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>chat-tutor 실습 허브</title>
+  <link rel="stylesheet" href="/shared/ui.css" />
+  <style>
+    li { margin: 6px 0; }
+    .need { font-size: 12px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header class="top"><h1>chat-tutor 실습 허브</h1><span class="muted">각 페이지에 필요한 서버가 적혀 있다. 자세한 실행법은 QUICK_START.md</span></header>
+  <main>
+    <section class="panel">
+      <h2>2단계 · 실시간 통신과 인증</h2>
+      <ul>
+        <li><a href="/labs/07-raw-websocket/">07 순수 WebSocket</a> <span class="need">서버: <code>./gradlew :server:raw-websocket:bootRun</code></span></li>
+        <li><a href="/labs/08-stomp-chat/">08~09 STOMP 채팅 · heartbeat · 재연결</a> <span class="need">서버: <code>./gradlew :server:stomp-chat:bootRun</code></span></li>
+        <li><a href="/labs/12-secure-chat/">12 JWT 로 보호된 STOMP</a> <span class="need">서버: <code>./gradlew :server:secure-chat:bootRun</code> + <code>npm run tenant</code></span></li>
+      </ul>
+    </section>
+    <section class="panel">
+      <h2>3단계 · 화면 동기화 (서버 없이 브라우저만)</h2>
+      <ul>
+        <li><a href="/labs/13-dom-events/">13 DOM 이벤트 · 전파 · isTrusted · property vs attribute</a></li>
+        <li><a href="/labs/15-mutation-mirror/">15~16 스냅샷 + MutationObserver 로 화면 복제 (같은 페이지 안에서)</a></li>
+        <li><a href="/labs/17-echo-loop/">17 에코 루프 재현과 방지</a></li>
+      </ul>
+    </section>
+    <section class="panel">
+      <h2>4단계 · 최종 프로젝트: 화면 공유 상담</h2>
+      <p class="muted">서버: <code>./gradlew :server:cobrowse-server:bootRun</code> + <code>npm run tenant</code></p>
+      <ul>
+        <li><a href="/apps/customer/" target="_blank">고객 페이지 (보험 가입 화면 + SDK)</a></li>
+        <li><a href="/apps/agent/" target="_blank">상담사 콘솔</a></li>
+      </ul>
+      <p class="muted">두 창을 나란히 띄워 놓고 고객 페이지에서 입력·스크롤해 보자. 클러스터 실습은 4-practical/23 README 참고.</p>
+    </section>
+  </main>
+</body>
+</html>

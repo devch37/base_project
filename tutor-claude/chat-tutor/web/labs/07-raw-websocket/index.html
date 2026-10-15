@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>07 순수 WebSocket</title>
+  <link rel="stylesheet" href="/shared/ui.css" />
+</head>
+<body>
+  <header class="top"><h1>07 · 순수 WebSocket</h1><span class="muted">서버: <code>./gradlew :server:raw-websocket:bootRun</code> (8080)</span></header>
+  <main class="grid2">
+    <section class="panel">
+      <h2>연결</h2>
+      <div class="row">
+        <select id="path"><option value="/ws/echo">/ws/echo (에코)</option><option value="/ws/room">/ws/room (방 채팅, 직접 만든 규칙)</option></select>
+        <button id="connect" class="primary">연결</button>
+        <button id="close">close(1000)</button>
+        <span id="ready" class="badge">CLOSED</span>
+      </div>
+      <p class="muted">개발자도구 → Network → WS 탭에서 <b>101 Switching Protocols</b> 응답과 Messages(프레임)를 꼭 확인하자.</p>
+      <h2>보내기</h2>
+      <div class="row"><input id="msg" style="flex:1" value='{"type":"join","roomId":"r1","name":"고객"}' /><button id="send">send</button></div>
+      <div class="row" style="margin-top:6px">
+        <button data-fill='{"type":"join","roomId":"r1","name":"고객"}'>join 예시</button>
+        <button data-fill='{"type":"chat","text":"안녕하세요"}'>chat 예시</button>
+        <button data-fill='이건 JSON 이 아님'>잘못된 메시지</button>
+      </div>
+      <p class="muted">탭을 두 개 열어 같은 방에 join 하면 서로의 chat 이 보인다. 한쪽 탭을 닫으면 "나갔습니다"가 온다.</p>
+    </section>
+    <section class="panel"><h2>로그</h2><div id="log" class="log" style="height:420px"></div></section>
+  </main>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ACME 보험 — 실손보험 가입</title>
+  <link rel="stylesheet" href="./assets/site.css" />
+  <style>
+    /* SDK 위젯 스타일 (위젯 자체는 data-cobrowse-ignore 라 상담사 화면에 안 보낸다) */
+    #cb-widget { position: fixed; right: 16px; bottom: 16px; width: 320px; background: #fff; border: 1px solid #cfd4dc; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,.12); font: 13px/1.5 -apple-system, sans-serif; z-index: 2147483000; }
+    #cb-widget header { padding: 10px 12px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+    #cb-widget .body { padding: 10px 12px; display: grid; gap: 8px; }
+    #cb-chat { height: 120px; overflow: auto; background: #f6f7f9; border-radius: 6px; padding: 6px 8px; }
+    #cb-widget .mono { font: 11px ui-monospace, monospace; color: #667085; }
+    #cb-widget button { font: inherit; padding: 5px 10px; border-radius: 6px; border: 1px solid #cfd4dc; background: #fff; cursor: pointer; }
+    #cb-widget button.on { background: #12a150; color: #fff; border-color: #12a150; }
+  </style>
+</head>
+<body class="site">
+  <header class="site-header"><img src="./assets/logo.svg" alt="ACME 보험" /><nav><a href="#plans">상품</a> · <a href="#apply">가입</a></nav></header>
+
+  <main class="site-main">
+    <section class="card" id="plans">
+      <h2>1. 플랜 선택</h2>
+      <div class="plans">
+        <div class="plan" data-plan="basic"><b>기본형</b><br />월 12,000원</div>
+        <div class="plan" data-plan="standard"><b>표준형</b><br />월 19,000원</div>
+        <div class="plan" data-plan="premium"><b>고급형</b><br />월 31,000원</div>
+      </div>
+      <p id="plan-desc" class="muted">플랜을 선택하세요.</p>
+    </section>
+
+    <section class="card" id="apply">
+      <h2>2. 가입자 정보</h2>
+      <form id="form">
+        <div class="field"><label for="name">이름</label><input id="name" name="name" autocomplete="name" /></div>
+        <div class="field"><label for="phone">휴대폰</label><input id="phone" name="phone" inputmode="tel" placeholder="010-0000-0000" /></div>
+        <div class="field"><label for="rrn">주민등록번호 (상담사에게 가려짐)</label><input id="rrn" name="rrn" data-cobrowse-mask /></div>
+        <div class="field"><label for="job">직업</label>
+          <select id="job" name="job"><option value="">선택</option><option>회사원</option><option>자영업</option><option>학생</option></select>
+        </div>
+        <div class="field"><label for="memo">문의사항</label><textarea id="memo" name="memo" rows="3"></textarea></div>
+        <div class="field"><label><input type="checkbox" id="agree" /> 약관에 동의합니다</label></div>
+        <div class="terms" id="terms">
+          <p>제1조(목적) 이 약관은 ... 스크롤 동기화 실습을 위한 긴 약관입니다.</p>
+          <p>제2조(정의) ...</p><p>제3조(보험금의 지급사유) ...</p><p>제4조(보험금 지급에 관한 세부규정) ...</p>
+          <p>제5조(보험금을 지급하지 않는 사유) ...</p><p>제6조(보험금 지급절차) ...</p><p>제7조(계약 전 알릴 의무) ...</p>
+          <p>제8조 ...</p><p>제9조 ...</p><p>제10조(마지막) 끝까지 읽으셨습니다.</p>
+        </div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2>3. 결제 정보</h2>
+      <div class="field"><label for="card">카드번호 (자동 마스킹: autocomplete=cc-number)</label><input id="card" autocomplete="cc-number" /></div>
+      <div class="field"><label for="pw">카드 비밀번호 앞 2자리</label><input id="pw" type="password" maxlength="2" /></div>
+      <section data-cobrowse-block class="card" style="background:#fafbfc">
+        <b>보유 계좌 목록 (상담사에게 통째로 가려짐: data-cobrowse-block)</b>
+        <p>국민 123-45-6789 잔액 3,120,000원</p>
+      </section>
+      <canvas id="chart" width="300" height="80" style="border:1px solid #eee;border-radius:8px"></canvas>
+      <p class="muted">↑ canvas 는 DOM 이 아니라 픽셀이다. 스냅샷 시점의 그림만 이미지로 전달된다.</p>
+      <ul id="beneficiaries"></ul>
+      <button type="button" class="btn" id="add-beneficiary">수익자 추가</button>
+      <button type="button" class="btn" id="submit" data-cobrowse-no-remote>가입 신청 (원격 클릭 금지)</button>
+    </section>
+  </main>
+
+  <aside id="cb-widget" data-cobrowse-ignore>
+    <header><b>화면 공유 상담</b><span id="cb-state" class="mono">대기</span></header>
+    <div class="body">
+      <div class="row">
+        <input id="cb-customer" value="customer-1" style="width:110px" />
+        <button id="cb-start">상담 시작</button>
+        <button id="cb-stop" disabled>종료</button>
+      </div>
+      <div><button id="cb-control" disabled>상담사 조작 허용: 꺼짐</button></div>
+      <div id="cb-presence" class="mono">-</div>
+      <div id="cb-chat"></div>
+      <div class="row"><input id="cb-text" placeholder="메시지" style="flex:1" /><button id="cb-send" disabled>전송</button></div>
+      <div id="cb-stats" class="mono"></div>
+    </div>
+  </aside>
+
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

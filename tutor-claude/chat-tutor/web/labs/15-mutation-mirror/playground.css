@@ -1,0 +1,4 @@
+body { font-family: sans-serif; margin: 12px; background: #fff url("../../apps/customer/assets/pattern.svg"); }
+.row { display: flex; gap: 6px; flex-wrap: wrap; }
+.scroll { height: 90px; overflow: auto; border: 1px solid #ccc; padding: 6px; }
+li.hot { color: #d92d20; font-weight: bold; }

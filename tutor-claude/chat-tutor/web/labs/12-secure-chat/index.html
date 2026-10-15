@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>12 JWT 로 보호된 STOMP</title>
+  <link rel="stylesheet" href="/shared/ui.css" />
+</head>
+<body>
+  <header class="top"><h1>12 · 인증·인가가 붙은 STOMP</h1>
+    <span class="muted">서버: <code>./gradlew :server:secure-chat:bootRun</code> + <code>npm run tenant</code></span></header>
+  <main>
+    <section class="panel">
+      <h2>0. 고객사 백엔드에 요청 (API 키는 그 서버에만 있다)</h2>
+      <div class="row">
+        <label>고객 ID <input id="cid" value="c-100" style="width:80px" /></label>
+        <label>토큰 수명(초) <input id="ttl" value="40" style="width:50px" /></label>
+        <button id="start" class="primary">방 만들기 + 고객 토큰</button>
+        <label>상담사 ID <input id="aid" value="agent-1" style="width:80px" /></label>
+        <button id="atoken">상담사 토큰</button>
+        <button id="assign">상담사를 방에 배정</button>
+        <button id="unassign" class="danger">배정 해제(→ 강제 종료)</button>
+      </div>
+      <p class="mono" id="info">-</p>
+      <p class="muted">발급된 토큰을 <a href="https://jwt.io" target="_blank" rel="noreferrer">jwt.io</a> 에 붙여 보자 — 서명 없이도 내용이 다 보인다(서명 ≠ 암호화).</p>
+    </section>
+    <div class="grid2">
+      <section class="panel" id="pane-customer"></section>
+      <section class="panel" id="pane-agent"></section>
+    </div>
+  </main>
+  <template id="pane">
+    <h2 class="title"></h2>
+    <div class="row">
+      <button class="connect primary">CONNECT (Bearer)</button>
+      <button class="connect-none">토큰 없이 CONNECT</button>
+      <button class="disconnect">DISCONNECT</button>
+      <span class="badge state">-</span>
+    </div>
+    <div class="row" style="margin-top:6px">
+      <button class="sub-mine">내 방 구독</button>
+      <button class="sub-other">남의 방 구독(거부되어야)</button>
+      <button class="close-room">상담 종료(/close)</button>
+      <button class="refresh">토큰 갱신</button>
+    </div>
+    <div class="row" style="margin-top:6px"><input class="text" style="flex:1" placeholder="메시지" /><button class="send">SEND</button></div>
+    <div class="log" style="height:280px;margin-top:8px"></div>
+  </template>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

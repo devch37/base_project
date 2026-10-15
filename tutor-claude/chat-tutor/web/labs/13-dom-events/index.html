@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>13 DOM 이벤트</title>
+  <link rel="stylesheet" href="/shared/ui.css" />
+  <style>
+    #outer { padding: 20px; background: #eef2ff; border-radius: 10px; }
+    #middle { padding: 20px; background: #dbe4ff; border-radius: 10px; }
+    #inner { padding: 10px 16px; }
+  </style>
+</head>
+<body>
+  <header class="top"><h1>13 · HTML · DOM · 이벤트</h1><span class="muted">서버 불필요</span></header>
+  <main class="grid2">
+    <section class="panel">
+      <h2>1. 이벤트 전파: 캡처 → 타깃 → 버블</h2>
+      <div id="outer">outer
+        <div id="middle">middle
+          <button id="inner">inner 버튼</button>
+        </div>
+      </div>
+      <label><input type="checkbox" id="stop" /> middle 의 버블 단계에서 stopPropagation()</label>
+      <p class="muted">SDK 가 document 에 <code>capture: true</code> 로 리스너를 다는 이유: 페이지가 stopPropagation 해도 캡처 단계에서 먼저 본다.</p>
+
+      <h2>2. isTrusted: 진짜 사용자 vs 스크립트</h2>
+      <div class="row">
+        <button id="target">대상 버튼</button>
+        <button id="by-click">스크립트로 .click()</button>
+        <button id="by-dispatch">dispatchEvent(new MouseEvent)</button>
+      </div>
+      <p class="muted">대상 버튼을 직접 눌러 보고, 옆 버튼들로도 눌러 보자. 17장 에코 방지의 핵심 재료다.</p>
+
+      <h2>3. attribute vs property</h2>
+      <div class="row"><input id="field" value="초기값" /><button id="inspect">비교</button></div>
+      <p class="muted">입력란에 타이핑한 뒤 "비교". getAttribute('value') 는 그대로, .value 는 바뀐다. MutationObserver 는 attribute 변화만 본다.</p>
+
+      <h2>4. MutationObserver 가 보는 것</h2>
+      <div class="row">
+        <button id="m-add">자식 추가</button><button id="m-attr">class 변경</button><button id="m-text">텍스트 변경</button><button id="m-value">.value 변경</button><button id="m-style">style 변경</button>
+      </div>
+      <div id="watched" style="margin-top:8px;padding:8px;border:1px dashed #aaa">관찰 대상 <span id="wtext">텍스트</span> <input id="winput" /></div>
+    </section>
+    <section class="panel"><h2>로그</h2><div id="log" class="log" style="height:620px"></div></section>
+  </main>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

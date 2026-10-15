@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "types": [
+      "node",
+      "vite/client"
+    ],
+    "strict": true,
+    "noImplicitOverride": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "allowImportingTsExtensions": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@ex/*": [
+        "exercises/src/*"
+      ]
+    }
+  },
+  "include": [
+    "web/**/*.ts",
+    "1-basic/**/*.ts",
+    "2-intermediate/**/*.ts",
+    "3-advanced/**/*.ts",
+    "4-practical/**/*.ts",
+    "exercises/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/dist"
+  ]
+}

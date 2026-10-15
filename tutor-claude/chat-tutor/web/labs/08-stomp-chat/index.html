@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>08~09 STOMP 채팅</title>
+  <link rel="stylesheet" href="/shared/ui.css" />
+</head>
+<body>
+  <header class="top"><h1>08~09 · STOMP 채팅 · heartbeat · 재연결</h1><span class="muted">서버: <code>./gradlew :server:stomp-chat:bootRun</code> (Vite 프록시 /ws 경유)</span></header>
+  <main class="grid2">
+    <section class="panel">
+      <h2>연결</h2>
+      <div class="row">
+        <label>이름 <input id="name" value="고객" style="width:80px" /></label>
+        <label>방 <input id="room" value="r1" style="width:60px" /></label>
+        <label>heartbeat(ms) <input id="hb" value="10000" style="width:70px" /></label>
+      </div>
+      <div class="row" style="margin-top:8px">
+        <button id="connect" class="primary">CONNECT</button>
+        <button id="disconnect">DISCONNECT</button>
+        <label><input type="checkbox" id="auto" checked /> 끊기면 자동 재연결(백오프+jitter)</label>
+        <span id="state" class="badge">idle</span>
+      </div>
+      <h2 style="margin-top:12px">채팅</h2>
+      <div class="row"><input id="text" style="flex:1" placeholder="메시지" /><button id="send">SEND /app/rooms/{방}/send</button></div>
+      <div class="row" style="margin-top:6px">
+        <button id="history">SUBSCRIBE /app/rooms/{방}/history (놓친 메시지)</button>
+        <button id="empty">빈 메시지(오류 받기)</button>
+        <button id="bypass">/topic 으로 직접 SEND (우회!)</button>
+      </div>
+      <p class="muted">
+        실험: (1) 탭 두 개로 대화 (2) 개발자도구 Network → WS → Messages 에서 CONNECT/CONNECTED/SUBSCRIBE/MESSAGE 프레임 원문 보기
+        (3) 서버를 Ctrl+C 로 끄고 다시 켜기 → 재연결 + 재구독 + history 로 놓친 메시지 채우기
+        (4) "우회" 버튼 — 컨트롤러를 거치지 않고 다른 사람에게 메시지가 뿌려진다. 12장에서 막는다.
+      </p>
+    </section>
+    <section class="panel"><h2>STOMP 프레임 로그</h2><div id="log" class="log" style="height:460px"></div></section>
+  </main>
+  <script type="module" src="./main.ts"></script>
+</body>
+</html>

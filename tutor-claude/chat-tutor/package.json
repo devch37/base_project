@@ -1,0 +1,52 @@
+{
+  "name": "chat-tutor",
+  "version": "1.0.0",
+  "description": "웹 통신 기초부터 STOMP·JWT·화면 동기화(co-browsing)·다중 서버까지, 상담 솔루션을 만들며 배우는 튜토리얼",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vite --config web/vite.config.ts",
+    "dev:other-origin": "vite --config web/vite.config.ts --port 5174 --strictPort",
+    "build:sdk": "vite build --config web/sdk/vite.lib.config.ts",
+    "tenant": "tsx web/tenant-backend/server.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run --config web/vitest.config.ts",
+    "test:watch": "vitest --config web/vitest.config.ts",
+    "ex": "vitest run --config exercises/vitest.config.ts",
+    "ex:solution": "SOLUTION=1 vitest run --config exercises/vitest.config.ts",
+    "e2e": "tsx --test web/e2e/*.e2e.ts",
+    "server": "./gradlew :server:cobrowse-server:bootRun",
+    "server:jar": "./gradlew :server:cobrowse-server:bootJar -q && java -jar server/cobrowse-server/build/libs/cobrowse-server.jar",
+    "lab:01:server": "tsx 1-basic/01-web-basics/raw-http-server.ts",
+    "lab:01:url": "tsx 1-basic/01-web-basics/url-origin.ts",
+    "lab:02": "tsx 1-basic/02-http-rest-json/rest-demo.ts",
+    "lab:03": "tsx 1-basic/03-async-js/event-loop.ts",
+    "lab:03:promise": "tsx 1-basic/03-async-js/promise-async.ts",
+    "lab:04": "tsx 1-basic/04-runtime-build-tools/where-am-i.ts",
+    "lab:07": "tsx 2-intermediate/07-http-vs-websocket/ws-client.ts",
+    "lab:08": "tsx 2-intermediate/08-stomp-pubsub/stomp-by-hand.ts",
+    "lab:09": "tsx 2-intermediate/09-heartbeat-reconnect/backoff.ts",
+    "lab:11": "tsx 2-intermediate/11-jwt/jwt-by-hand.ts",
+    "lab:14": "tsx 3-advanced/14-bytes-encoding-compression/bytes.ts",
+    "lab:18": "tsx 3-advanced/18-chunking/chunk-demo.ts",
+    "lab:19": "tsx 3-advanced/19-order-loss-resync/order-demo.ts",
+    "lab:21:proxy": "tsx 4-practical/21-tls-proxy-upgrade/proxy-demo.ts",
+    "lab:21:client": "tsx 4-practical/21-tls-proxy-upgrade/ws-through-proxy.ts"
+  },
+  "dependencies": {
+    "@stomp/stompjs": "7.3.0"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^22.20.5",
+    "jsdom": "^26.1.0",
+    "playwright": "1.63.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.3",
+    "vite": "^6.4.4",
+    "vitest": "^3.2.7"
+  }
+}
